@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Servidor do Gabriel</title>
+    <title>Servidor do Igor</title>
 </head>
 <body>
     <?php
