@@ -1,33 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meu Site PHP</title>
+
+<link rel="stylesheet" href="css/style.css">
+
 </head>
+
 <body>
-    <h1>Calculo de IMC </h1>
-    <form action="" method="post">
-        <label for="peso">peso</label><br>
-        <input type="number" name="peso" id="peso" required><br>
-        <label for="altura">altura</label><br>
-        <input type="number" name="altura" id="altura" required>
-        <input type="submit" name="calcular" value="calcular">
 
-        <?php 
-            $imc = floatval($peso) / (floatval($altura) * floatval($altura));
+<header>
+<h1>Meu Site PHP</h1>
+</header>
 
-            if (isset($_REQUEST['calcular'])) {
-            if ($imc < 18.5) {
-                echo "O seu IMC é: {$imc}, você está abaixo do peso";
-            } else if ($imc < 25) {
-                echo "O seu IMC é: {$imc}, você está com o peso ideal";
-            } else if ($imc < 30) {
-                echo "O seu IMC é: {$imc}, você está acima do peso";
-            } else {
-                echo "O seu IMC é: {$imc}, você está obeso";
-            }
-            }
-        ?>
+<nav>
+<a href="#">Home</a>
+<a href="#">Sobre</a>
+<a href="#">Contato</a>
+</nav>
+
+<main>
+
+<section>
+<h2>Bem-vindo!</h2>
+
+<?php
+echo "<p>Site PHP funcionando 🚀</p>";
+?>
+
+</section>
+
+</main>
+
+<footer>
+<p>© ".date("Y")." Meu Site</p>
+</footer>
+
 </body>
 </html>
