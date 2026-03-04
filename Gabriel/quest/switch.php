@@ -7,5 +7,21 @@
 </head>
 <body>
     
+    <?php
+    $op = 1;
+    
+    switch ($op) {
+        case 1:
+            echo "O valor é 1";
+            break;
+        case 2:
+            echo "O valor é 2";
+            break;
+            
+        default:
+            echo "Opção inválida";
+    }
+    ?>
+    
 </body>
 </html>
