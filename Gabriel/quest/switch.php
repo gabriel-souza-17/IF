@@ -8,7 +8,7 @@
 <body>
     
     <?php
-    $op = 1;
+    $op = 10;
     
     switch ($op) {
         case 1:
@@ -17,7 +17,7 @@
         case 2:
             echo "O valor é 2";
             break;
-            
+
         default:
             echo "Opção inválida";
     }
