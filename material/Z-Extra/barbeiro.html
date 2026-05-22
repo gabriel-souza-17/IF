@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Agenda — Barbeiro</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <img src="logo.png" alt="logo" class="logo-small" />
+      <button id="logout" class="btn ghost">Sair</button>
+    </div>
+  </header>
+
+  <main class="container main">
+    <section class="card">
+      <div style="display:flex;gap:14px;align-items:center;justify-content:space-between">
+        <h2>Agenda</h2>
+        <div>
+          <button id="tabAgenda" class="btn ghost">Agenda</button>
+          <button id="tabHistorico" class="btn ghost">Histórico</button>
+        </div>
+      </div>
+
+      <!-- AGENDA -->
+      <div id="panelAgenda" style="margin-top:14px">
+        <table class="agenda" id="tabelaAgendamentos" aria-label="Agendamentos">
+          <thead><tr><th>Data</th><th>Horário</th><th>Cliente</th><th>Serviço</th><th>Valor</th><th>Ação</th></tr></thead>
+          <tbody><!-- preenchido por JS --></tbody>
+        </table>
+      </div>
+
+      <!-- HISTÓRICO -->
+      <div id="panelHistorico" style="display:none;margin-top:14px">
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+          <label>Início: <input type="date" id="histStart" /></label>
+          <label>Fim: <input type="date" id="histEnd" /></label>
+          <button id="filtrarHist" class="btn primary">Filtrar</button>
+          <button id="limparFiltro" class="btn ghost">Limpar</button>
+        </div>
+
+        <div style="margin-top:12px">
+          <strong>Resumo:</strong> <span id="histResumo">0 atendimentos</span>
+        </div>
+
+        <table class="agenda" id="tabelaHistorico" style="margin-top:12px">
+          <thead><tr><th>Data</th><th>Cliente</th><th>Serviço</th><th>Valor (R$)</th></tr></thead>
+          <tbody><!-- preenchido por JS --></tbody>
+        </table>
+      </div>
+
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Easy Barber</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-light">
+
+<!-- TOPO -->
+<nav class="navbar navbar-dark bg-black border-bottom border-secondary">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#">
+      Easy Barber
+    </a>
+
+    <a href="login.php" class="btn btn-outline-light">
+      Login
+    </a>
+  </div>
+</nav>
+
+<!-- CONTEÚDO -->
+<div class="container py-5">
+
+  <!-- LOGO -->
+  <div class="text-center mb-5">
+    <img src="logo.png" width="180">
+  </div>
+
+  <!-- CARD -->
+  <div class="card bg-black border-secondary text-light shadow">
+
+    <div class="card-header">
+      <button class="btn text-light w-100 text-start"
+              data-bs-toggle="collapse"
+              data-bs-target="#servicos">
+
+        Agenda Samuel
+      </button>
+    </div>
+
+    <div id="servicos" class="collapse">
+
+      <div class="card-body">
+
+        <table class="table table-dark table-hover align-middle">
+          <thead>
+            <tr>
+              <th>Serviço</th>
+              <th>Preço</th>
+              <th>Duração</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>Corte</td>
+              <td>R$ 45</td>
+              <td>1h</td>
+            </tr>
+
+            <tr>
+              <td>Sobrancelha</td>
+              <td>R$ 10</td>
+              <td>15min</td>
+            </tr>
+
+            <tr>
+              <td>Barba</td>
+              <td>R$ 30</td>
+              <td>30min</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="text-center mt-4">
+          <button class="btn btn-warning px-4"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalAgendamento">
+
+            Agendar Serviço
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal fade" id="modalAgendamento">
+  <div class="modal-dialog modal-dialog-centered">
+
+    <div class="modal-content bg-dark text-light border-secondary">
+
+      <div class="modal-header">
+        <h5 class="modal-title">
+          Finalizar Agendamento
+        </h5>
+
+        <button class="btn-close btn-close-white"
+                data-bs-dismiss="modal">
+        </button>
+      </div>
+
+      <div class="modal-body">
+
+        <form>
+
+          <div class="mb-3">
+            <input type="text"
+                   class="form-control bg-black text-light border-secondary"
+                   placeholder="Nome">
+          </div>
+
+          <div class="mb-3">
+            <input type="text"
+                   class="form-control bg-black text-light border-secondary"
+                   placeholder="Telefone">
+          </div>
+
+          <button class="btn btn-warning w-100">
+            Confirmar
+          </button>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

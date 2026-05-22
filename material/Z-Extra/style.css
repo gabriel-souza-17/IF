@@ -1,0 +1,113 @@
+:root{
+  --bg:#f5f6f7; --card:#fff; --accent:#0b0b0b; --muted:#8b949e;
+  --primary:#111827; --round:14px;
+  --shadow:0 14px 30px rgba(10,10,10,0.06); --soft:0 8px 18px rgba(10,10,10,0.05);
+}
+
+/* base */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background:var(--bg);color:var(--accent)}
+.container{max-width:980px;margin:0 auto;padding:0 18px}
+.topbar{padding:12px 0}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between}
+
+/* login link */
+.login-link{background:var(--primary);color:#fff;padding:9px 14px;border-radius:999px;font-weight:600;text-decoration:none;box-shadow:var(--soft)}
+
+/* logo */
+.logo-wrap{display:flex;justify-content:center;margin-top:10px;margin-bottom:6px}
+.logo{width:150px;display:block;filter:drop-shadow(0 10px 20px rgba(0,0,0,0.06));transition:transform .45s cubic-bezier(.2,.9,.2,1)}
+.logo:hover{transform:translateY(-6px)}
+.logo-small{width:110px}
+
+/* card */
+.main{padding:18px 0}
+.card{background:var(--card);border-radius:var(--round);padding:12px;border:1px solid rgba(0,0,0,0.04);box-shadow:var(--shadow)}
+
+/* accordion */
+.accordion-toggle{width:100%;display:flex;align-items:center;justify-content:center;padding:16px 18px;font-size:18px;background:linear-gradient(180deg,#fff,#fbfbfb);border-radius:12px;border:1px solid rgba(0,0,0,0.06);box-shadow:var(--soft);cursor:pointer;transition:transform .18s}
+.accordion-toggle:hover{transform:translateY(-2px)}
+.chev{opacity:.8;transition:transform .28s;margin-left:8px}
+
+/* panel */
+.accordion-panel{margin-top:12px;max-height:0;overflow:hidden;transition:all .45s;opacity:0;transform:translateY(-6px);border-radius:12px}
+.accordion-panel.open{max-height:1000px;opacity:1;transform:none}
+
+/* serviços table */
+.servicos{width:100%;border-collapse:collapse;font-size:15px}
+.servicos thead th{display:none}
+.servicos tbody tr{display:grid;grid-template-columns:1fr auto auto;gap:14px;padding:14px;border-radius:10px;align-items:center;cursor:pointer;transition:transform .12s,background .12s}
+.servicos tbody tr + tr{margin-top:8px}
+.s-name{font-weight:700}
+.s-price{color:#111827;min-width:76px;text-align:right;padding-right:8px}
+.s-duration{color:var(--muted);min-width:86px;text-align:right}
+
+/* selected */
+.servicos tbody tr:hover{background:#f3f4f5;transform:translateY(-2px)}
+.servicos tbody tr.selected{background:linear-gradient(90deg,#eef6ff,#fff);border-left:4px solid #2563eb}
+
+/* actions */
+.actions{display:flex;justify-content:flex-end;margin-top:12px}
+.btn{border:0;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:700}
+.btn.primary{background:var(--primary);color:#fff;box-shadow:0 10px 24px rgba(17,24,39,0.08)}
+.btn.ghost{background:transparent;border:1px solid rgba(0,0,0,0.06);color:var(--accent)}
+
+/* bottom menu - centralizado */
+.bottom-menu{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;width:86%;max-width:760px;background:var(--card);padding:12px;border-radius:40px;display:flex;justify-content:center;box-shadow:0 8px 30px rgba(10,10,10,0.08);border:1px solid rgba(0,0,0,0.04)}
+.bm-item{font-weight:600;color:var(--muted);cursor:pointer;transition:color .2s}
+.bm-item:hover{color:var(--accent)}
+.bm-item-center{text-align:center}
+
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(6,10,15,0.28);display:none;align-items:center;justify-content:center;padding:20px;z-index:60}
+.modal.show{display:flex}
+.modal-card{width:100%;max-width:640px;background:var(--card);padding:18px;border-radius:12px;box-shadow:0 20px 40px rgba(2,6,23,0.12);position:relative}
+.modal-close{position:absolute;right:12px;top:12px;border:0;background:transparent;font-size:18px;cursor:pointer}
+
+/* days grid - CORES: branco (normal), preto (selecionado), cinza (hover) */
+.days-grid{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;padding:14px}
+.day-box{
+  min-width:110px;
+  background:#fff;            /* padrão branco */
+  color:var(--accent);
+  border-radius:12px;
+  padding:12px 10px;
+  text-align:center;
+  font-weight:700;
+  cursor:pointer;
+  border:2px solid #111827;  /* borda preta */
+  transition:transform .12s, background .12s, color .12s;
+}
+.day-box:hover{ background:#f1f1f1 } /* hover cinza */
+.day-box.selected{ background:#111827; color:#fff } /* selecionado preto */
+
+/* times grid */
+.times-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:12px}
+.time-box{min-width:110px;background:#fff;border-radius:12px;padding:10px 8px;text-align:center;border:1px solid rgba(0,0,0,0.06);cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,0.03);transition:transform .12s}
+.time-box:hover{transform:translateY(-4px)}
+.time-box.disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* form */
+.form input{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);margin:8px 0;font-size:15px}
+.row{display:flex;gap:10px}
+.row .form input{flex:1}
+.row.buttons{justify-content:flex-end}
+
+/* agenda */
+.agenda{width:100%;border-collapse:collapse;margin-top:12px}
+.agenda th,.agenda td{padding:12px 10px;text-align:left;border-bottom:1px solid rgba(0,0,0,0.06)}
+.logo-small{width:110px}
+
+/* auth card */
+.centered-page{min-height:80vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.auth-card{width:100%;max-width:420px;padding:26px;text-align:center}
+
+/* responsive */
+@media (max-width:720px){
+  .servicos tbody tr{grid-template-columns:1fr auto}
+  .servicos tbody tr td:nth-child(3){display:none}
+  .day-box{min-width:86px;padding:10px}
+  .time-box{min-width:86px;padding:10px}
+  .logo{width:130px}
+  .bottom-menu{width:94%}
+}
