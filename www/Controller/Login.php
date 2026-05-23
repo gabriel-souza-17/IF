@@ -1,5 +1,7 @@
 <?php
+
 require_once __DIR__ . '/../Models/Login.php';
+
 class Login {
 
     public function index(){
@@ -22,7 +24,10 @@ class Login {
 
         }
 
-        $usuario = UsuarioLogin::buscarPorEmail($email);
+        $usuario =
+        UsuarioLogin::buscarPorEmail(
+            $email
+        );
 
         if(!$usuario){
 
@@ -31,35 +36,73 @@ class Login {
 
         }
 
-        if(!password_verify($senha, $usuario['usuarios_senha'])){
+        if(
+            !password_verify(
+                $senha,
+                $usuario['usuarios_senha']
+            )
+        ){
 
             echo "Senha inválida";
             return;
 
         }
 
-        $_SESSION['usuario_id'] = $usuario['usuarios_id'];
-        $_SESSION['usuario_nome'] = $usuario['usuarios_dono'];
-        $_SESSION['usuario_email'] = $usuario['usuarios_email'];
-        $_SESSION['usuario_nivel'] = $usuario['usuarios_nivel'];
+        // sessão principal
 
-        if($usuario['usuarios_nivel'] == 2){
+        $_SESSION['usuario_logado'] = $usuario;
 
-            header('Location: ' . base_url('admin'));
+        // sessão rápida
+
+        $_SESSION['usuario_id'] =
+        $usuario['usuarios_id'];
+
+        $_SESSION['usuario_nome'] =
+        $usuario['usuarios_dono'];
+
+        $_SESSION['usuario_email'] =
+        $usuario['usuarios_email'];
+
+        $_SESSION['usuario_nivel'] =
+        $usuario['usuarios_nivel'];
+
+        $_SESSION['usuario_barbearia'] =
+        $usuario['usuarios_barbearia'];
+
+        // ADMIN
+
+        if(
+            $usuario['usuarios_nivel'] == 1
+        ){
+
+            header(
+                'Location: ' .
+                base_url('admin')
+            );
+
             exit;
 
         }
 
-        if($usuario['usuarios_nivel'] == 1){
+        // BARBEIRO
 
-            header('Location: ' . base_url('user'));
+        if(
+            $usuario['usuarios_nivel'] == 2
+        ){
+
+            header(
+                'Location: ' .
+                base_url('user')
+            );
+
             exit;
 
         }
 
         session_destroy();
 
-        echo "Nível de usuário inválido";
+        echo "Nível inválido";
+
     }
 
     public function logout(){
@@ -68,7 +111,11 @@ class Login {
 
         session_destroy();
 
-        header('Location: ' . base_url('login'));
+        header(
+            'Location: ' .
+            base_url('login')
+        );
+
         exit;
 
     }

@@ -6,14 +6,40 @@ class User {
 
         session_start();
 
-        if(!isset($_SESSION['usuario_id'])){
+        if(
+            !isset(
+                $_SESSION['usuario_logado']
+            )
+        ){
 
-            header('Location: ' . base_url('login'));
+            redirectPage(
+                base_url('login')
+            );
+
             exit;
 
         }
 
-        require __DIR__ . '/Views/User/index.php';
+        // apenas barbeiro
+
+        if(
+            $_SESSION['usuario_nivel']
+            != 2
+        ){
+
+            redirectPage(
+                base_url('login')
+            );
+
+            exit;
+
+        }
+
+        $usuario =
+        $_SESSION['usuario_logado'];
+
+        require
+        'Views/User/Dashboard/index.php';
 
     }
 
