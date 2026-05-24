@@ -7,7 +7,6 @@ class Cliente {
     }
 
     public function agendar(){
-        
-    ;
+        ;
     }
 }

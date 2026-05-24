@@ -31,5 +31,6 @@ return [
     '/cliente' => ['Cliente', 'index'],
     '/admin' => ['Admin', 'index'],
     '/user' => ['User', 'index'],
+    '/barbeiro' => ['Barbeiro', 'index'],
 
 ];
