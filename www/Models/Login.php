@@ -1,49 +1,66 @@
 <?php
 
-require_once __DIR__ .
-'/../Config/Database.php';
+require_once __DIR__ . '/../Config/Database.php';
 
 class UsuarioLogin {
 
-    public static function buscarPorEmail(
-        $email
-    ){
+    // =========================
+    // ADMIN
+    // =========================
+    public static function buscarAdmin($email){
 
-        $conn =
-        Database::connect();
+        $conn = Database::connect();
 
-        $sql =
         $sql = $conn->prepare("
-
-        SELECT
-
-        usuarios_id,
-        usuarios_dono,
-        usuarios_barbearia,
-        usuarios_email,
-        usuarios_senha,
-        usuarios_cpf,
-        usuarios_fone,
-        usuarios_nivel,
-        usuarios_status,
-        usuarios_criado
-        FROM usuarios
-        WHERE usuarios_email = :email
-        LIMIT 1
+            SELECT *
+            FROM admins
+            WHERE email = :email
+            LIMIT 1
         ");
 
-        $sql->bindValue(
-            ':email',
-            $email
-        );
-
+        $sql->bindValue(':email', $email);
         $sql->execute();
 
-        return
-        $sql->fetch(
-            PDO::FETCH_ASSOC
-        );
-
+        return $sql->fetch(PDO::FETCH_ASSOC);
     }
 
+    // =========================
+    // EQUIPE (dono, barbeiro, recepção)
+    // =========================
+    public static function buscarEquipe($email){
+
+        $conn = Database::connect();
+
+        $sql = $conn->prepare("
+            SELECT *
+            FROM equipe
+            WHERE email = :email
+            LIMIT 1
+        ");
+
+        $sql->bindValue(':email', $email);
+        $sql->execute();
+
+        return $sql->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // =========================
+    // BARBEARIA (cadastro inicial / dono antigo)
+    // =========================
+    public static function buscarBarbearia($email){
+
+        $conn = Database::connect();
+
+        $sql = $conn->prepare("
+            SELECT *
+            FROM barbearias
+            WHERE email = :email
+            LIMIT 1
+        ");
+
+        $sql->bindValue(':email', $email);
+        $sql->execute();
+
+        return $sql->fetch(PDO::FETCH_ASSOC);
+    }
 }

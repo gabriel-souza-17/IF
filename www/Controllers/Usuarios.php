@@ -1,107 +1,53 @@
 <?php
 
-require_once __DIR__ . '/../Models/Usuarios.php';
+require_once __DIR__ . '/../Models/Barbearias.php';
+require_once __DIR__ . '/../Models/Equipe.php';
 
 class Usuarios {
 
     public function index(){
-
-        require __DIR__ .
-        '/../Views/Usuarios/index.php';
-
+        require __DIR__ . '/../Views/Usuarios/index.php';
     }
 
     public function new(){
-
-        require __DIR__ .
-        '/../Views/Usuarios/new.php';
-
+        require __DIR__ . '/../Views/Usuarios/new.php';
     }
 
     public function save(){
 
-        $usuarios_dono =
-        $_POST['dono'] ?? null;
+        $dono = $_POST['dono'] ?? null;
+        $barbearia = $_POST['barbearia'] ?? null;
+        $email = $_POST['email'] ?? null;
+        $cpf = $_POST['cpf'] ?? null;
+        $fone = $_POST['fone'] ?? null;
+        $senha = $_POST['senha'] ?? null;
 
-        $usuarios_barbearia =
-        $_POST['barbearia'] ?? null;
-
-        $usuarios_email =
-        $_POST['email'] ?? null;
-
-        $usuarios_cpf =
-        $_POST['cpf'] ?? null;
-
-        $usuarios_fone =
-        $_POST['fone'] ?? null;
-
-        $usuarios_senha =
-        $_POST['senha'] ?? null;
-
-        if(
-
-            !$usuarios_dono ||
-
-            !$usuarios_barbearia ||
-
-            !$usuarios_email ||
-
-            !$usuarios_cpf ||
-
-            !$usuarios_fone ||
-
-            !$usuarios_senha
-
-        ){
-
-            echo
-            "Preencha todos os campos";
-
+        if(!$dono || !$barbearia || !$email || !$cpf || !$fone || !$senha){
+            echo "Preencha todos os campos";
             return;
-
         }
 
-        $usuarios_senha =
-        password_hash(
-            $usuarios_senha,
-            PASSWORD_DEFAULT
+        $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+
+        // 1. CRIA BARBEARIA
+        $barbearia_id = Barbearias::save(
+            $barbearia,
+            $email,
+            $cpf,
+            $fone
         );
 
-        // DONO BARBEARIA
-
-        $usuarios_nivel = 2;
-
-        $usuarios_status = 1;
-
-        Usuario::save(
-
-            $usuarios_dono,
-
-            $usuarios_barbearia,
-
-            $usuarios_email,
-
-            $usuarios_cpf,
-
-            $usuarios_fone,
-
-            $usuarios_senha,
-
-            $usuarios_nivel,
-
-            $usuarios_status
-
+        // 2. CRIA DONO NA EQUIPE
+        Equipe::save(
+            $barbearia_id,
+            $dono,
+            $email,
+            $senhaHash,
+            'dono',
+            1
         );
 
-        header(
-            "Location: " .
-            base_url(
-                'login'
-            )
-        );
-
+        header("Location: " . base_url('login'));
         exit;
-
     }
-
 }

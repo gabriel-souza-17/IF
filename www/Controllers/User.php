@@ -61,7 +61,7 @@ class User {
 
         require
         __DIR__ .
-        '/../Views/User/Dashboard/index.php';
+        '/../Views/User/Barbearia/Dashboard/index.php';
 
     }
 

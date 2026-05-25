@@ -105,6 +105,6 @@ ob_get_clean();
 
 require
 __DIR__ .
-'/../../../Templates/barbeiro.php';
+'/../../../../Templates/barbeiro.php';
 
 ?>

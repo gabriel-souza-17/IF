@@ -5,215 +5,116 @@ require_once __DIR__ . '/../Models/Login.php';
 class Login {
 
     public function index(){
-
         require 'Views/Login/index.php';
-
     }
 
     public function auth(){
 
         session_start();
 
-        $email = trim(
-            $_POST['email'] ?? ''
-        );
+        $email = trim($_POST['email'] ?? '');
+        $senha = trim($_POST['senha'] ?? '');
 
-        $senha = trim(
-            $_POST['senha'] ?? ''
-        );
-
-        // validar campos
-
-        if(
-            empty($email) ||
-            empty($senha)
-        ){
-
+        if(empty($email) || empty($senha)){
             echo "Preencha email e senha";
             return;
-
         }
 
-        // buscar usuário
+        $usuario = null;
+        $tipo = null;
 
-        $usuario =
-        UsuarioLogin::buscarPorEmail(
-            $email
-        );
+        // 1 - ADMIN
+        $usuario = UsuarioLogin::buscarAdmin($email);
+        if($usuario){
+            $tipo = 'admin';
+        }
+
+        // 2 - EQUIPE
+        if(!$usuario){
+            $usuario = UsuarioLogin::buscarEquipe($email);
+            if($usuario){
+                $tipo = 'equipe';
+            }
+        }
+
+        // 3 - BARBEARIA (dono antigo / cadastro inicial)
+        if(!$usuario){
+            $usuario = UsuarioLogin::buscarBarbearia($email);
+            if($usuario){
+                $tipo = 'barbearia';
+            }
+        }
 
         if(!$usuario){
-
             echo "Usuário não encontrado";
             return;
-
         }
 
-        // verificar senha
+        // VERIFICA SENHA (campos diferentes dependendo da tabela)
+        $senhaBanco = $usuario['senha'] ?? $usuario['usuarios_senha'];
 
-        if(
-            !password_verify(
-                $senha,
-                $usuario['usuarios_senha']
-            )
-        ){
-
+        if(!password_verify($senha, $senhaBanco)){
             echo "Senha inválida";
             return;
-
         }
 
-        // verificar status
-
-        if(
-            $usuario['usuarios_status'] != 1
-        ){
-
+        // STATUS (se existir)
+        if(isset($usuario['status']) && $usuario['status'] != 1){
             echo "Conta desativada";
             return;
-
         }
 
-        // salvar sessão completa
+        // SESSÃO PADRÃO
+        $_SESSION['logado'] = true;
+        $_SESSION['tipo'] = $tipo;
 
-        $_SESSION['usuario_logado'] = true;
+        $_SESSION['usuario'] = $usuario;
 
-        $_SESSION['usuario'] = [
+        // =========================
+        // REDIRECIONAMENTO
+        // =========================
 
-            'id' =>
-            $usuario['usuarios_id'],
-
-            'nome' =>
-            $usuario['usuarios_dono'],
-
-            'email' =>
-            $usuario['usuarios_email'],
-
-            'cpf' =>
-            $usuario['usuarios_cpf'],
-
-            'fone' =>
-            $usuario['usuarios_fone'],
-
-            'nivel' =>
-            $usuario['usuarios_nivel'],
-
-            'status' =>
-            $usuario['usuarios_status'],
-
-            'criado' =>
-            $usuario['usuarios_criado']
-
-        ];
-
-        // sessões rápidas
-
-        $_SESSION['usuario_id'] =
-        $usuario['usuarios_id'];
-
-        $_SESSION['usuario_nome'] =
-        $usuario['usuarios_dono'];
-
-        $_SESSION['usuario_email'] =
-        $usuario['usuarios_email'];
-
-        $_SESSION['usuario_barbearia'] =
-        $usuario['usuarios_barbearia'];
-
-        $_SESSION['usuario_nivel'] =
-        $usuario['usuarios_nivel'];
-
-        $_SESSION['usuario_status'] =
-        $usuario['usuarios_status'];
-
-        // ADMIN
-
-        if(
-            $usuario['usuarios_nivel'] == 1
-        ){
-
-            header(
-                'Location: ' .
-                base_url(
-                    'admin'
-                )
-            );
-
+        if($tipo == 'admin'){
+            header('Location: ' . base_url('admin'));
             exit;
-
         }
 
-        // DONO BARBEARIA
+        if($tipo == 'equipe'){
 
-        if(
-            $usuario['usuarios_nivel'] == 2
-        ){
+            $_SESSION['barbearia_id'] = $usuario['barbearia_id'];
+            $_SESSION['cargo'] = $usuario['cargo'];
 
-            header(
-                'Location: ' .
-                base_url(
-                    'user'
-                )
-            );
+            if($usuario['cargo'] == 'dono'){
+                header('Location: ' . base_url('user'));
+                exit;
+            }
 
-            exit;
+            if($usuario['cargo'] == 'barbeiro'){
+                header('Location: ' . base_url('barbeiro'));
+                exit;
+            }
 
+            if($usuario['cargo'] == 'recepcao'){
+                header('Location: ' . base_url('recepcao'));
+                exit;
+            }
         }
 
-        // BARBEIRO
-
-        if(
-            $usuario['usuarios_nivel'] == 3
-        ){
-
-            header(
-                'Location: ' .
-                base_url(
-                    'barbeiro'
-                )
-            );
-
+        if($tipo == 'barbearia'){
+            header('Location: ' . base_url('user'));
             exit;
-
-        }
-
-        // CLIENTE
-
-        if(
-            $usuario['usuarios_nivel'] == 4
-        ){
-
-            header(
-                'Location: ' .
-                base_url(
-                    'cliente'
-                )
-            );
-
-            exit;
-
         }
 
         session_destroy();
-
-        echo "Nível inválido";
-
+        echo "Tipo inválido";
     }
 
     public function logout(){
 
         session_start();
-
         session_destroy();
 
-        header(
-            'Location: ' .
-            base_url(
-                'login'
-            )
-        );
-
+        header('Location: ' . base_url('login'));
         exit;
-
     }
-
 }
