@@ -1,301 +1,83 @@
 <?php
 
-require_once __DIR__ . '/../Models/Login.php';
-require_once __DIR__ . '/../Config/Helpers.php';
+namespace Controllers;
 
-class Login {
+require_once("Models/Database.php");
+require_once("Config/Helpers.php");
 
-    public function index(){
+use Models\Database as Conexao;
+use \PDO;
 
-        require 'Views/Login/index.php';
+class Login{
 
+    private $usuarios;
+    
+    function __construct(){
+        $this->usuarios = new Conexao('usuarios');
     }
 
-    public function auth(){
-
-        session_start();
-
-        $login = trim(
-            $_POST['login'] ?? ''
-        );
-
-        $senha = trim(
-            $_POST['senha'] ?? ''
-        );
-
-        if(
-            empty($login)
-            ||
-            empty($senha)
-        ){
-
-            echo "Preencha login e senha";
-            return;
-
+    protected function redirect($path, $message = null) {
+        if ($message) {
+            $_SESSION['msg'] = $message;
         }
+        header("Location: {$path}");
+        exit;
+    }
 
-        $usuario = null;
-        $tipo = null;
+    
 
-        // ADMIN
-        $usuario =
-        UsuarioLogin::buscarAdmin(
-            $login
-        );
+    //R - Função Listar todas os registros de uma tabela do BD
+    function index(){
+        $data = [];
+        $data['pagina'] = 'login';
+        $data['msg'] = '';
+        return view('login/index',$data);
+    }
+
+    function auth(){
+        $requests = $_POST;
+
+        $login = $requests['login'];
+        $senha = $requests['senha'];
+
+        $where = "usuarios_cpf = '{$login}' OR usuarios_email = 
+        '{$login}' AND usuarios_senha = '{$senha}' ";
+
+        $usuario = $this->usuarios->select(null, $where)->fetchObject();
 
         if($usuario){
+            if($usuario->usuarios_nivel == 1){
+                $_SESSION['usuario_logado'] = $usuario;
+                $msg = ['texto'=>"Logado!", 'color'=>"success"];
+                Login::redirect(base_url('admin'),$msg);
 
-            $tipo = 'admin';
 
-        }
+            }else if($usuario->usuarios_nivel == 2){
+                $_SESSION['usuario_logado'] = $usuario;
+                $msg = ['texto'=>"Logado!", 'color'=>"success"];
+                Login::redirect(base_url('user'),$msg);
 
-        // EQUIPE
-        if(!$usuario){
-
-            $usuario =
-            UsuarioLogin::buscarEquipe(
-                $login
-            );
-
-            if($usuario){
-
-                $tipo = 'equipe';
-
+            }else{
+                $msg = ['texto'=>"Usuário ou senha inválidos!", 'color'=>"danger"];
+                Login::redirect(base_url('login'),$msg);
             }
 
+        }else{
+            $msg = ['texto'=>"Usuário ou senha inválidos!", 'color'=>"danger"];
+            Login::redirect(base_url('login'),$msg);
         }
-
-        // BARBEARIA
-        if(!$usuario){
-
-            $usuario =
-            UsuarioLogin::buscarBarbearia(
-                $login
-            );
-
-            if($usuario){
-
-                $tipo = 'barbearia';
-
-            }
-
-        }
-
-        if(!$usuario){
-
-            echo "Usuário não encontrado";
-            return;
-
-        }
-
-        // senha do banco
-        $senhaBanco =
-        $usuario['senha']
-        ??
-        $usuario['usuarios_senha']
-        ??
-        null;
-
-        if(!$senhaBanco){
-
-            echo "Senha não encontrada";
-            return;
-
-        }
-
-        // verifica senha
-        if(
-            !password_verify(
-                $senha,
-                $senhaBanco
-            )
-        ){
-
-            echo "Senha inválida";
-            return;
-
-        }
-
-        // status
-        if(
-            isset(
-                $usuario['status']
-            )
-            &&
-            $usuario['status'] != 1
-        ){
-
-            echo "Conta desativada";
-            return;
-
-        }
-
-        // sessão
-        $_SESSION[
-            'logado'
-        ] = true;
-
-        $_SESSION[
-            'tipo'
-        ] = $tipo;
-
-        $_SESSION[
-            'usuario'
-        ] = $usuario;
-
-        // ADMIN
-        if(
-            $tipo
-            ==
-            'admin'
-        ){
-
-            header(
-                'Location: ' .
-                base_url(
-                    'admin'
-                )
-            );
-
-            exit;
-
-        }
-
-        // EQUIPE
-        if(
-            $tipo
-            ==
-            'equipe'
-        ){
-
-            $_SESSION[
-                'barbearia_id'
-            ] =
-            $usuario[
-                'barbearia_id'
-            ]
-            ??
-            null;
-
-            $_SESSION[
-                'cargo'
-            ] =
-            $usuario[
-                'cargo'
-            ]
-            ??
-            null;
-
-            if(
-                $_SESSION[
-                    'cargo'
-                ]
-                ==
-                'dono'
-            ){
-
-                header(
-                    'Location: ' .
-                    base_url(
-                        'user'
-                    )
-                );
-
-                exit;
-
-            }
-
-            if(
-                $_SESSION[
-                    'cargo'
-                ]
-                ==
-                'barbeiro'
-            ){
-
-                header(
-                    'Location: ' .
-                    base_url(
-                        'barbeiro'
-                    )
-                );
-
-                exit;
-
-            }
-
-            if(
-                $_SESSION[
-                    'cargo'
-                ]
-                ==
-                'recepcao'
-            ){
-
-                header(
-                    'Location: ' .
-                    base_url(
-                        'recepcao'
-                    )
-                );
-
-                exit;
-
-            }
-
-        }
-
-        // BARBEARIA
-        if(
-            $tipo
-            ==
-            'barbearia'
-        ){
-
-            header(
-                'Location: ' .
-                base_url(
-                    'user'
-                )
-            );
-
-            exit;
-
-        }
-
-        session_destroy();
-
-        echo "Tipo inválido";
-
     }
 
-    public function logout(){
-
-        session_start();
-
-        unset(
-            $_SESSION['logado']
-        );
-
-        unset(
-            $_SESSION['usuario']
-        );
-
-        unset(
-            $_SESSION['tipo']
-        );
-
+    function logout(){
+        unset($_SESSION['usuario_logado']);
         session_destroy();
-
-        header(
-            'Location: ' .
-            base_url(
-                'login'
-            )
-        );
-
-        exit;
-
+        $msg = ['texto'=>"Deslogado!", 'color'=>"success"];
+            Login::redirect(base_url('/'),$msg);
     }
+
+
 
 }
+
+
+

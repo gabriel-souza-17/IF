@@ -1,68 +1,36 @@
 <?php
 
-class User {
+namespace Controllers;
 
-    public function index(){
+require_once("Models/Database.php");
+require_once("Config/Helpers.php");
 
-        session_start();
+use Models\Database as Conexao;
+use \PDO;
 
-        // verificar login
+class User{
 
-        if(
-            empty(
-                $_SESSION['usuario_id']
-            )
-        ){
+    function __construct(){
+        # $this->usuarios = new Conexao('usuarios');
+    }
 
-            header(
-                'Location: ' .
-                base_url(
-                    'login'
-                )
-            );
-
-            exit;
-
+    protected function redirect($path, $message = null) {
+        if ($message) {
+            $_SESSION['msg'] = $message;
         }
+        header("Location: {$path}");
+        exit;
+    }
 
-        // apenas dono
-
-        if(
-            $_SESSION['usuario_nivel']
-            != 2
-        ){
-
-            header(
-                'Location: ' .
-                base_url(
-                    'login'
-                )
-            );
-
-            exit;
-
-        }
-
-        $usuario = [
-
-            'id' =>
-            $_SESSION['usuario_id'],
-
-            'nome' =>
-            $_SESSION['usuario_nome'],
-
-            'email' =>
-            $_SESSION['usuario_email'],
-
-            'barbearia' =>
-            $_SESSION['usuario_barbearia']
-
-        ];
-
-        require
-        __DIR__ .
-        '/../Views/User/Barbearia/Dashboard/index.php';
-
+    //R - Função Listar todas os registros de uma tabela do BD
+    function index(){
+        $data = [];
+        $data['pagina'] = 'User';
+        $data['msg'] = '';
+        return view('user/index',$data);
     }
 
 }
+
+
+
