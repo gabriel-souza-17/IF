@@ -17,7 +17,7 @@ function accessNavigate(){
             break;
 
         case 'dono':
-            include('Views/templates/nav_user.php');
+            include('Views/templates/nav_dono.php');
             break;
 
         case 'barbeiro':

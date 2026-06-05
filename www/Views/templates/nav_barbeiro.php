@@ -35,6 +35,13 @@
                             Área do cliente
                         </a>
                     </div>
+
+                    <div class="d-flex">
+                        <a class="btn btn-outline-primary me-2" href="<?php echo base_url('login/logout') ?>">
+                            <i class="bi bi-person-circle"></i>
+                            Sair
+                        </a>
+                    </div>
                 </div>
             </div>
         </nav>
