@@ -1,12 +1,32 @@
 <?php
 
-function accessNavigate($nivel=Null){
-    if($nivel == 2){
-        include('Views/templates/nav_user.php');
-    }else if($nivel == 1){
-        include('Views/templates/nav_admin.php');
-    }else{
+function accessNavigate(){
+
+    if(!isset($_SESSION['usuario_logado'])){
+
         include('Views/templates/nav.php');
+        return;
+    }
+
+    $cargo = $_SESSION['usuario_logado']->cargo ?? '';
+
+    switch($cargo){
+
+        case 'admin':
+            include('Views/templates/nav_admin.php');
+            break;
+
+        case 'dono':
+            include('Views/templates/nav_user.php');
+            break;
+
+        case 'barbeiro':
+            include('Views/templates/nav_barbeiro.php');
+            break;
+
+        default:
+            include('Views/templates/nav.php');
+            break;
     }
 }
 

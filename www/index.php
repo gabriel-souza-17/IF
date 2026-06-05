@@ -1,13 +1,18 @@
 <?php
 
+ob_start();
+session_start();
 
-ob_start(); // <- Inicia o buffer de saída
-session_start(); // <- Isso é essencial para usar $_SESSION
+$nivel = null;
 
-if(isset($_SESSION['usuario_logado'])){
-    $nivel = $_SESSION['usuario_logado']->usuarios_nivel;
-}else{
-    $nivel = NULL;
+if (isset($_SESSION['usuario_logado'])) {
+
+    $usuario = $_SESSION['usuario_logado'];
+
+    if (is_object($usuario) && isset($usuario->cargo)) {
+        $nivel = $usuario->cargo;
+    }
+
 }
 
 

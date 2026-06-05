@@ -183,3 +183,97 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+-- Projeto EasyBarber 
+
+
+CREATE TABLE barbearias (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    telefone VARCHAR(20),
+    email VARCHAR(255),
+    status TINYINT DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    barbearia_id INT NULL,
+
+    nome VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    telefone VARCHAR(20),
+    senha VARCHAR(255) NOT NULL,
+
+    cargo ENUM(
+        'admin',
+        'dono',
+        'barbeiro'
+    ) NOT NULL,
+
+    atende_clientes TINYINT DEFAULT 0,
+    agenda_ativa TINYINT DEFAULT 1,
+    status TINYINT DEFAULT 1,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (barbearia_id)
+        REFERENCES barbearias(id)
+);
+
+CREATE TABLE equipe (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+
+    foto VARCHAR(255),
+    descricao TEXT,
+
+    tempo_padrao INT DEFAULT 30,
+
+    FOREIGN KEY (usuario_id)
+        REFERENCES usuarios(id)
+);
+
+CREATE TABLE agenda (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+
+    usuario_id INT NOT NULL,
+
+    dia_semana TINYINT NOT NULL,
+
+    hora_inicio TIME NOT NULL,
+    hora_fim TIME NOT NULL,
+
+    ativo TINYINT DEFAULT 1,
+
+    FOREIGN KEY (usuario_id)
+        REFERENCES usuarios(id)
+);
+
+-- Inserts de exemplo
+
+INSERT INTO barbearias (nome, telefone, email, status)
+VALUES ('Barbearia Central', '62999990000', 'contato@central.com', 1);
+
+INSERT INTO usuarios (barbearia_id, nome, email, telefone, senha, cargo, status)
+VALUES (
+    NULL,
+    'Administrador',
+    'admin@system.com',
+    '00000000000',
+    MD5('admin'),
+    'admin',
+    1
+);
+
+INSERT INTO usuarios (barbearia_id, nome, email, telefone, senha, cargo, status)
+VALUES (
+    1,
+    'João Dono',
+    'dono@central.com',
+    '62988880000',
+    MD5('123456'),
+    'dono',
+    1
+);

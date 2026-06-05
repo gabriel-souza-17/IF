@@ -13,7 +13,7 @@ class Database{
   const HOST = 'mysql';
   
   # Nome do banco de dados
-  const NAME = 'projeto';
+  const NAME = 'novo_projeto';
 
   # Usuário do banco
   const USER = 'root';

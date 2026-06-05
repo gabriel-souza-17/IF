@@ -6,78 +6,98 @@ require_once("Models/Database.php");
 require_once("Config/Helpers.php");
 
 use Models\Database as Conexao;
-use \PDO;
 
-class Login{
+class Login {
 
     private $usuarios;
-    
-    function __construct(){
+
+    public function __construct(){
         $this->usuarios = new Conexao('usuarios');
     }
 
-    protected function redirect($path, $message = null) {
-        if ($message) {
+    public function index(){
+        return view('login/index');
+    }
+
+    public function auth(){
+
+        $login = trim($_POST['login'] ?? '');
+        $senha = trim($_POST['senha'] ?? '');
+
+        if(empty($login) || empty($senha)){
+            return $this->redirect(base_url('login'), [
+                'texto' => 'Preencha usuário e senha!',
+                'color' => 'danger'
+            ]);
+        }
+
+        $where = "email = '{$login}'";
+
+        $usuario = $this->usuarios
+            ->select(null, $where, null, 1)
+            ->fetchObject();
+
+        if(!$usuario){
+            return $this->redirect(base_url('login'), [
+                'texto' => 'Usuário não encontrado!',
+                'color' => 'danger'
+            ]);
+        }
+
+        if($usuario->senha !== md5($senha)){
+            return $this->redirect(base_url('login'), [
+                'texto' => 'Senha inválida!',
+                'color' => 'danger'
+            ]);
+        }
+
+        if(isset($usuario->status) && $usuario->status != 1){
+            return $this->redirect(base_url('login'), [
+                'texto' => 'Usuário inativo!',
+                'color' => 'danger'
+            ]);
+        }
+
+        $_SESSION['usuario_logado'] = $usuario;
+
+        switch($usuario->cargo){
+
+            case 'admin':
+                return $this->redirect(base_url('admin'));
+
+            case 'dono':
+                return $this->redirect(base_url('user'));
+
+            case 'barbeiro':
+                return $this->redirect(base_url('barbeiro'));
+
+            default:
+                session_destroy();
+                return $this->redirect(base_url('login'), [
+                    'texto' => 'Cargo inválido!',
+                    'color' => 'danger'
+                ]);
+        }
+    }
+
+    public function logout(){
+
+        session_start();
+        unset($_SESSION['usuario_logado']);
+        session_destroy();
+
+        return $this->redirect(base_url('/'), [
+            'texto' => 'Deslogado com sucesso!',
+            'color' => 'success'
+        ]);
+    }
+
+    protected function redirect($path, $message = null){
+        if($message){
             $_SESSION['msg'] = $message;
         }
+
         header("Location: {$path}");
         exit;
     }
-
-    
-
-    //R - Função Listar todas os registros de uma tabela do BD
-    function index(){
-        $data = [];
-        $data['pagina'] = 'login';
-        $data['msg'] = '';
-        return view('login/index',$data);
-    }
-
-    function auth(){
-        $requests = $_POST;
-
-        $login = $requests['login'];
-        $senha = $requests['senha'];
-
-        $where = "usuarios_cpf = '{$login}' OR usuarios_email = 
-        '{$login}' AND usuarios_senha = '{$senha}' ";
-
-        $usuario = $this->usuarios->select(null, $where)->fetchObject();
-
-        if($usuario){
-            if($usuario->usuarios_nivel == 1){
-                $_SESSION['usuario_logado'] = $usuario;
-                $msg = ['texto'=>"Logado!", 'color'=>"success"];
-                Login::redirect(base_url('admin'),$msg);
-
-
-            }else if($usuario->usuarios_nivel == 2){
-                $_SESSION['usuario_logado'] = $usuario;
-                $msg = ['texto'=>"Logado!", 'color'=>"success"];
-                Login::redirect(base_url('user'),$msg);
-
-            }else{
-                $msg = ['texto'=>"Usuário ou senha inválidos!", 'color'=>"danger"];
-                Login::redirect(base_url('login'),$msg);
-            }
-
-        }else{
-            $msg = ['texto'=>"Usuário ou senha inválidos!", 'color'=>"danger"];
-            Login::redirect(base_url('login'),$msg);
-        }
-    }
-
-    function logout(){
-        unset($_SESSION['usuario_logado']);
-        session_destroy();
-        $msg = ['texto'=>"Deslogado!", 'color'=>"success"];
-            Login::redirect(base_url('/'),$msg);
-    }
-
-
-
 }
-
-
-

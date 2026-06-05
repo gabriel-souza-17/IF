@@ -22,7 +22,7 @@
                             <a class="nav-link active" aria-current="page"
                                 href="#">
                                 <i class="bi bi-house-fill"></i>
-                                Home Dono da Barbearia
+                                Home Barbeiro
                             </a>
                         </li>
 
