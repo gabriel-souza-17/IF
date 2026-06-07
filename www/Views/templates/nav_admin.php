@@ -31,7 +31,7 @@
                             <a class="nav-link active" aria-current="page"
                                 href="<?php echo base_url('cidades') ?>">
                                 <i class="bi bi-basket"></i>
-                                Cidades
+                                Barbearias
                             </a>
                         </li>
 
@@ -40,7 +40,7 @@
                             <a class="nav-link active" aria-current="page"
                                 href="<?php echo base_url('categorias') ?>">
                                 <i class="bi bi-basket"></i>
-                                Categorias
+                                Auth
                             </a>
                         </li>
 

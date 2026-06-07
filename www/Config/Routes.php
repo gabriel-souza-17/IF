@@ -10,6 +10,10 @@ return [
     '/home/anuncios' => ['Home', 'anuncios'],
     '/home/contato' => ['Home', 'contato'],
 
+    '/cadastro' => ['Cadastro', 'index'],
+    '/cadastro/index' => ['Cadastro', 'index'],
+    '/cadastro/create' => ['Cadastro', 'create'],
+    
     '/cidades' => ['Cidades', 'index'],
     '/cidades/new' => ['Cidades', 'new'],
     '/cidades/index' => ['Cidades', 'index'],

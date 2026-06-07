@@ -42,32 +42,53 @@ class Usuarios{
     }
 
     // C - Função Cadastrar
-    function save(){
-        $data = [];
-        $requests = $_POST;
+    public function save()
+    {
+    $requests = $_POST;
 
-        $values = [
-            'usuarios_nome'=> $requests['usuarios_nome'],
-            'usuarios_sobrenome'=> $requests['usuarios_sobrenome'],
-            'usuarios_cpf'=> $requests['usuarios_cpf'],
-            'usuarios_email'=> $requests['usuarios_email'],
-            'usuarios_senha'=> md5($requests['usuarios_senha']),
-            'usuarios_fone'=> $requests['usuarios_fone'],
-            'usuarios_nivel'=> 2
-            ];
+    $values = [
 
-        if($this->usuarios->insert($values)){
-            $data['msg'] = flash('Cadastrado com Sucesso!');
-        }else{
-            $data['msg'] = flash('Não foi cadastrado!','danger');
-        }
+        'barbearia_id' => null, // vamos preencher depois
 
-        $data['usuarios'] = $this->usuarios->select($join=null, $where=null,$order=null,$limit=null)->fetchAll(PDO::FETCH_CLASS);
-        $data['pagina'] = 'Listar usuarios';
-        return view('usuarios/index',$data);
+        'nome' => trim($requests['nome']),
+
+        'email' => trim($requests['email']),
+
+        'telefone' => trim($requests['telefone']),
+
+        'senha' => md5($requests['senha']),
+
+        'cargo' => 'dono',
+
+        'atende_clientes' => 1,
+
+        'agenda_ativa' => 1,
+
+        'status' => 1,
+
+        'created_at' => date('Y-m-d H:i:s')
+    ];
+
+    if($this->usuarios->insert($values)){
+
+        return $this->redirect(
+            base_url('login'),
+            [
+                'texto' => 'Cadastro realizado com sucesso!',
+                'color' => 'success'
+            ]
+        );
 
     }
 
+    return $this->redirect(
+        base_url('cadastro'),
+        [
+            'texto' => 'Erro ao cadastrar.',
+            'color' => 'danger'
+        ]
+    );
+    }   
 
     //R - Função Listar todas os registros de uma tabela do BD
     function index(){

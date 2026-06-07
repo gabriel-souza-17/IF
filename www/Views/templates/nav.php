@@ -63,6 +63,12 @@
                         </li>
 
                     </ul>
+                
+                    <div class="d-flex">
+                        <a class="btn btn-primary" href="<?php echo base_url('usuarios') ?>">
+                            <i class="bi bi-person-plus"></i>
+                            Cadastrar
+                        </a>
 
                     <div class="d-flex">
                         <a class="btn btn-outline-primary me-2" href="<?php echo base_url('login') ?>">

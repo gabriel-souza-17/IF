@@ -1,73 +1,95 @@
-<?php 
-if(isset($_SESSION['usuario_logado'])){
-    if($_SESSION['usuario_logado']->usuarios_nivel == 1){
-?>
-
 <div class="container pt-4 pb-5 bg-light">
-    
+
     <h2 class="border-bottom border-2 border-primary">
         <?= ucfirst($data['pagina']) ?>
     </h2>
-    <form action="<?php echo base_url('usuarios/'.$data['method']); ?>" method="post">
-        
+
+    <form
+        action="<?= base_url('usuarios/' . $data['method']); ?>"
+        method="post">
+
         <div class="mb-3">
-            <label for="usuarios_nome" class="form-label"> Nome </label>
-            <input type="text" class="form-control" name="usuarios_nome" value="<?= $data['usuarios']->usuarios_nome; ?>"  id="usuarios_nome">
+            <label for="barbearia" class="form-label">
+                Nome da Barbearia
+            </label>
+
+            <input
+                type="text"
+                class="form-control"
+                name="barbearia"
+                id="barbearia">
         </div>
 
         <div class="mb-3">
-            <label for="usuarios_sobrenome" class="form-label"> Sobrenome </label>
-            <input type="text" class="form-control" name="usuarios_sobrenome" value="<?= $data['usuarios']->usuarios_sobrenome; ?>"  id="usuarios_sobrenome">
+            <label for="nome" class="form-label">
+                Nome
+            </label>
+
+            <input
+                type="text"
+                class="form-control"
+                name="nome"
+                id="nome"
+                value="<?= $data['usuarios']->nome ?? ''; ?>">
         </div>
 
         <div class="mb-3">
-            <label for="usuarios_cpf" class="form-label"> CPF </label>
-            <input type="text" class="form-control" name="usuarios_cpf" value="<?= $data['usuarios']->usuarios_cpf; ?>"  id="usuarios_sobrenome">
+            <label for="email" class="form-label">
+                E-mail
+            </label>
+
+            <input
+                type="email"
+                class="form-control"
+                name="email"
+                id="email"
+                value="<?= $data['usuarios']->email ?? ''; ?>">
         </div>
 
         <div class="mb-3">
-            <label for="usuarios_email" class="form-label"> E-mail </label>
-            <input type="email" class="form-control" name="usuarios_email" value="<?= $data['usuarios']->usuarios_email; ?>"  id="usuarios_sobrenome">
+            <label for="telefone" class="form-label">
+                Telefone
+            </label>
+
+            <input
+                type="text"
+                class="form-control"
+                name="telefone"
+                id="telefone"
+                value="<?= $data['usuarios']->telefone ?? ''; ?>">
         </div>
+
+        <?php if ($data['method'] == 'save') : ?>
+
+            <div class="mb-3">
+                <label for="senha" class="form-label">
+                    Senha
+                </label>
+
+                <input
+                    type="password"
+                    class="form-control"
+                    name="senha"
+                    id="senha">
+            </div>
+
+        <?php endif; ?>
+
+        <input
+            type="hidden"
+            name="id"
+            value="<?= $data['usuarios']->id ?? ''; ?>">
 
         <div class="mb-3">
-            <label for="usuarios_fone" class="form-label"> Telefone</label>
-            <input type="text" class="form-control" name="usuarios_fone" value="<?= $data['usuarios']->usuarios_fone; ?>"  id="usuarios_sobrenome">
+            <button
+                type="submit"
+                class="btn btn-success">
+
+                Salvar
+
+            </button>
         </div>
 
-        <?php
-        if($data['method']=='save'){
-        ?>
-        <div class="mb-3">
-            <label for="usuarios_senha" class="form-label"> Senha</label>
-            <input type="password" class="form-control" name="usuarios_senha" 
-            value="<?= $data['usuarios']->usuarios_senha; ?>" 
-             id="usuarios_senha">
-        </div>
-
-        <?php
-        }
-        ?>
-
-        <input type="hidden" name="usuarios_id" value="<?= $data['usuarios']->usuarios_id; ?>" >
-
-        <div class="mb-3">
-            <input class="btn btn-success" type="submit" name="<?= $data['method']; ?>" value="Salvar">
-        </div>
-    
     </form>
 
 </div>
-
-<?php
-    }else{
-        $msg = "Sem permissão de acesso!";
-        redirectPage(base_url('login'));
-    }
-}else{
-    $msg = "Sem permissão de acesso!";
-        redirectPage(base_url('login'));
-
-}
-
-?>
