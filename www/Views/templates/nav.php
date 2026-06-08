@@ -65,7 +65,7 @@
                     </ul>
                 
                     <div class="d-flex">
-                        <a class="btn btn-primary" href="<?php echo base_url('usuarios') ?>">
+                        <a class="btn btn-primary" href="<?php echo base_url('usuarios/new') ?>">
                             <i class="bi bi-person-plus"></i>
                             Cadastrar
                         </a>

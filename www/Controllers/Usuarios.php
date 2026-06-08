@@ -6,172 +6,216 @@ require_once("Models/Database.php");
 require_once("Config/Helpers.php");
 
 use Models\Database as Conexao;
-use \PDO;
+use PDO;
 
-class Usuarios{
-
+class Usuarios
+{
     private $usuarios;
-    
-    function __construct(){
+    private $barbearias;
+
+    function __construct()
+    {
         $this->usuarios = new Conexao('usuarios');
+        $this->barbearias = new Conexao('barbearias');
     }
 
-    protected function redirect($path, $message = null) {
+    protected function redirect($path, $message = null)
+    {
         if ($message) {
             $_SESSION['msg'] = $message;
         }
+
         header("Location: {$path}");
         exit;
     }
 
     // Chama o formulário de cadastro
-    function new(){
+    function new()
+    {
         $data = [];
-        $data['usuarios'] = (object) [
-            'usuarios_id' => '',
-            'usuarios_nome' => '',
-            'usuarios_sobrenome' => '',
-            'usuarios_cpf' => '',
-            'usuarios_email' => '',
-            'usuarios_senha' => '',
-            'usuarios_fone' => '',
-        ];
-        $data['pagina'] = 'Cadastrar usuarios';
-        $data['method'] = 'save';
-        return view('usuarios/form',$data);
-    }
 
+        $data['usuarios'] = (object) [
+            'nome_barbearia' => '',
+            'nome'           => '',
+            'email'          => '',
+            'telefone'       => '',
+            'senha'          => ''
+        ];
+
+        $data['pagina'] = 'Cadastrar Barbearia';
+        $data['method'] = 'save';
+
+        return view('usuarios/form', $data);
+    }
+    
     // C - Função Cadastrar
     public function save()
     {
-    $requests = $_POST;
+        $requests = $_POST;
 
-    $values = [
+        // Cadastra a barbearia
+        $barbearia = [
+            'nome'       => trim($requests['nome_barbearia']),
+            'telefone'   => trim($requests['telefone']),
+            'email'      => trim($requests['email']),
+            'status'     => 1,
+            'created_at' => date('Y-m-d H:i:s')
+        ];
 
-        'barbearia_id' => null, // vamos preencher depois
+        $barbearia_id = $this->barbearias->insert($barbearia);
 
-        'nome' => trim($requests['nome']),
+        // Cadastra o usuário dono
+        $usuario = [
+            'barbearia_id'     => $barbearia_id,
+            'nome'             => trim($requests['nome']),
+            'email'            => trim($requests['email']),
+            'telefone'         => trim($requests['telefone']),
+            'senha'            => md5($requests['senha']),
+            'cargo'            => 'dono',
+            'atende_clientes'  => 1,
+            'agenda_ativa'     => 1,
+            'status'           => 1,
+            'created_at'       => date('Y-m-d H:i:s')
+        ];
 
-        'email' => trim($requests['email']),
-
-        'telefone' => trim($requests['telefone']),
-
-        'senha' => md5($requests['senha']),
-
-        'cargo' => 'dono',
-
-        'atende_clientes' => 1,
-
-        'agenda_ativa' => 1,
-
-        'status' => 1,
-
-        'created_at' => date('Y-m-d H:i:s')
-    ];
-
-    if($this->usuarios->insert($values)){
+        if ($this->usuarios->insert($usuario)) {
+            return $this->redirect(
+                base_url('login'),
+                [
+                    'texto' => 'Cadastro realizado com sucesso!',
+                    'color' => 'success'
+                ]
+            );
+        }
 
         return $this->redirect(
-            base_url('login'),
+            base_url('usuarios/new'),
             [
-                'texto' => 'Cadastro realizado com sucesso!',
-                'color' => 'success'
+                'texto' => 'Erro ao cadastrar.',
+                'color' => 'danger'
             ]
         );
-
     }
 
-    return $this->redirect(
-        base_url('cadastro'),
-        [
-            'texto' => 'Erro ao cadastrar.',
-            'color' => 'danger'
-        ]
-    );
-    }   
-
-    //R - Função Listar todas os registros de uma tabela do BD
-    function index(){
+    // R - Função Listar todas os registros de uma tabela do BD
+    function index()
+    {
         $data = [];
-        $data['usuarios'] = $this->usuarios->select($join=null, $where=null,$order=null,$limit=null)->fetchAll(PDO::FETCH_CLASS);
+
+        $data['usuarios'] = $this->usuarios
+            ->select($join = null, $where = null, $order = null, $limit = null)
+            ->fetchAll(PDO::FETCH_CLASS);
+
         $data['pagina'] = 'Listar usuarios';
         $data['msg'] = '';
-        return view('usuarios/index',$data);
+
+        return view('usuarios/index', $data);
     }
 
-    //R - Função editar  - Lista um registro da tabela filtrado por id
-    function edit($id){
+    // R - Função editar - Lista um registro da tabela filtrado por id
+    function edit($id)
+    {
         $data = [];
+
         $id = (int) $id;
-        $data['usuarios'] = $this->usuarios->select($join=null,'usuarios_id = '.$id)->fetchObject();
+
+        $data['usuarios'] = $this->usuarios
+            ->select($join = null, 'usuarios_id = ' . $id)
+            ->fetchObject();
+
         $data['pagina'] = 'Alterar usuarios';
         $data['method'] = 'edit_save';
 
-        return view('usuarios/form',$data);
+        return view('usuarios/form', $data);
     }
 
-    //R - Função Pesquisar por um valor
-    function search(){
+    // R - Função Pesquisar por um valor
+    function search()
+    {
         $data = [];
         $requests = $_POST;
+
         $data['msg'] = '';
-        if(isset($requests['pesquisar'])){
+
+        if (isset($requests['pesquisar'])) {
+
             $join = null;
             $where = null;
             $order = null;
             $limit = null;
-            $where = 'usuarios_nome like "%'.$requests['pesquisar'].'%"
-                     or usuarios_cpf like "%'.$requests['pesquisar'].'%"'; 
-            $data['usuarios'] = $this->usuarios->select($join,$where,$order,$limit)->fetchAll(PDO::FETCH_CLASS);
-            $data['msg'] = flash("Total de registros: ".count($data['usuarios']));
+
+            $where = 'usuarios_nome like "%' . $requests['pesquisar'] . '%"
+                     or usuarios_cpf like "%' . $requests['pesquisar'] . '%"';
+
+            $data['usuarios'] = $this->usuarios
+                ->select($join, $where, $order, $limit)
+                ->fetchAll(PDO::FETCH_CLASS);
+
+            $data['msg'] = flash(
+                "Total de registros: " . count($data['usuarios'])
+            );
 
             $data['pagina'] = 'Pesquisar usuarios';
-            return view('usuarios/index',$data);
 
-        }else{
+            return view('usuarios/index', $data);
+        } else {
             $this->index();
         }
-        
-
     }
 
-    //U - Função Alterar
-    function edit_save(){
+    // U - Função Alterar
+    function edit_save()
+    {
         $data = [];
         $requests = $_POST;
+
         $values = [
-                    'usuarios_nome'=> $requests['usuarios_nome'],
-                    'usuarios_sobrenome'=> $requests['usuarios_sobrenome'],
-                    'usuarios_cpf'=> $requests['usuarios_cpf'],
-                    'usuarios_email'=> $requests['usuarios_email'],
-                    'usuarios_fone'=> $requests['usuarios_fone']
-                ];
+            'usuarios_nome'      => $requests['usuarios_nome'],
+            'usuarios_sobrenome' => $requests['usuarios_sobrenome'],
+            'usuarios_cpf'       => $requests['usuarios_cpf'],
+            'usuarios_email'     => $requests['usuarios_email'],
+            'usuarios_fone'      => $requests['usuarios_fone']
+        ];
 
-        if($this->usuarios->update('usuarios_id = '.$requests['usuarios_id'],$values)){
+        if (
+            $this->usuarios->update(
+                'usuarios_id = ' . $requests['usuarios_id'],
+                $values
+            )
+        ) {
             $data['msg'] = flash('Alterado com Sucesso!');
-        }else{
-            $data['msg'] = flash('Não foi alterado!','danger');
+        } else {
+            $data['msg'] = flash('Não foi alterado!', 'danger');
         }
-        $data['usuarios'] = $this->usuarios->select($join=null, $where=null,$order=null,$limit=null)->fetchAll(PDO::FETCH_CLASS);
-        $data['pagina'] = 'Listar usuarios';
-        return view('usuarios/index',$data);
 
+        $data['usuarios'] = $this->usuarios
+            ->select($join = null, $where = null, $order = null, $limit = null)
+            ->fetchAll(PDO::FETCH_CLASS);
+
+        $data['pagina'] = 'Listar usuarios';
+
+        return view('usuarios/index', $data);
     }
 
-    //D - Função Deletar
-    function delete($id){
+    // D - Função Deletar
+    function delete($id)
+    {
         $id = (int) $id;
+
         $data = [];
-        if($this->usuarios->delete('usuarios_id = '.$id)){
+
+        if ($this->usuarios->delete('usuarios_id = ' . $id)) {
             $data['msg'] = flash("Excluido com Sucesso!");
-        }else{
-            $data['msg'] = flash("Não foi Excluido!","danger");
+        } else {
+            $data['msg'] = flash("Não foi Excluido!", "danger");
         }
-        $data['usuarios'] = $this->usuarios->select($join=null, $where=null,$order=null,$limit=null)->fetchAll(PDO::FETCH_CLASS);
+
+        $data['usuarios'] = $this->usuarios
+            ->select($join = null, $where = null, $order = null, $limit = null)
+            ->fetchAll(PDO::FETCH_CLASS);
+
         $data['pagina'] = 'Listar usuarios';
-        return view('usuarios/index',$data);
+
+        return view('usuarios/index', $data);
     }
 }
-
-
-

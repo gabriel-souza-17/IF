@@ -4,20 +4,19 @@
         <?= ucfirst($data['pagina']) ?>
     </h2>
 
-    <form
-        action="<?= base_url('usuarios/' . $data['method']); ?>"
-        method="post">
+    <form action="<?= base_url('usuarios/' . $data['method']); ?>" method="post">
 
         <div class="mb-3">
-            <label for="barbearia" class="form-label">
+            <label for="nome_barbearia" class="form-label">
                 Nome da Barbearia
             </label>
 
             <input
                 type="text"
                 class="form-control"
-                name="barbearia"
-                id="barbearia">
+                name="nome_barbearia"
+                id="nome_barbearia"
+                required>
         </div>
 
         <div class="mb-3">
@@ -30,7 +29,8 @@
                 class="form-control"
                 name="nome"
                 id="nome"
-                value="<?= $data['usuarios']->nome ?? ''; ?>">
+                value="<?= $data['usuarios']->nome ?? ''; ?>"
+                required>
         </div>
 
         <div class="mb-3">
@@ -43,7 +43,8 @@
                 class="form-control"
                 name="email"
                 id="email"
-                value="<?= $data['usuarios']->email ?? ''; ?>">
+                value="<?= $data['usuarios']->email ?? ''; ?>"
+                required>
         </div>
 
         <div class="mb-3">
@@ -56,7 +57,8 @@
                 class="form-control"
                 name="telefone"
                 id="telefone"
-                value="<?= $data['usuarios']->telefone ?? ''; ?>">
+                value="<?= $data['usuarios']->telefone ?? ''; ?>"
+                required>
         </div>
 
         <?php if ($data['method'] == 'save') : ?>
@@ -70,7 +72,8 @@
                     type="password"
                     class="form-control"
                     name="senha"
-                    id="senha">
+                    id="senha"
+                    required>
             </div>
 
         <?php endif; ?>
@@ -81,12 +84,8 @@
             value="<?= $data['usuarios']->id ?? ''; ?>">
 
         <div class="mb-3">
-            <button
-                type="submit"
-                class="btn btn-success">
-
+            <button type="submit" class="btn btn-success">
                 Salvar
-
             </button>
         </div>
 
