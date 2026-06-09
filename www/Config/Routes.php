@@ -65,6 +65,11 @@ return [
     '/dono/configuracoes' => ['Dono', 'configuracoes'],
     '/dono/visagismo' => ['Dono', 'visagismo'],
 
+    '/barbeiro' => ['Barbeiro', 'index'],
+    '/barbeiro/agenda' => ['Barbeiro', 'agenda'],
+    '/barbeiro/servicos' => ['Barbeiro', 'servicos'],
+    '/barbeiro/configuracoes' => ['Barbeiro', 'configuracoes'],
+    '/barbeiro/visagismo' => ['Barbeiro', 'visagismo'],
 
     '/user' => ['User', 'index'],
     '/user/index' => ['User', 'index'],

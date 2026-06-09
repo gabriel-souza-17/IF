@@ -12,35 +12,35 @@
         <ul class="nav flex-column">
 
             <li class="nav-item">
-                <a class="nav-link active" href="#">
+                <a class="nav-link active" href="<?= base_url('barbeiro') ?>">
                     <i class="bi bi-grid"></i>
                     Dashboard
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="<?= base_url('barbeiro/agenda') ?>">
                     <i class="bi bi-calendar3"></i>
                     Agenda
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="<?= base_url('barbeiro/servicos') ?>">
                     <i class="bi bi-scissors"></i>
                     Serviços
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="<?= base_url('barbeiro/visagismo') ?>">
                     <i class="bi bi-stars"></i>
                     Visagismo IA
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="<?= base_url('barbeiro/configuracoes') ?>">
                     <i class="bi bi-gear"></i>
                     Configurações
                 </a>
