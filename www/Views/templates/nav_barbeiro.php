@@ -27,13 +27,6 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                    <i class="bi bi-people"></i>
-                    Minha Equipe
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="#">
                     <i class="bi bi-scissors"></i>
                     Serviços
                 </a>
