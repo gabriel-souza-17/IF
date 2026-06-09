@@ -4,16 +4,16 @@ return [
 
     '/' => ['Home', 'index'],
     '/home' => ['Home', 'index'],
+    '/projeto' => ['Home', 'index'],
+    '/projeto/' => ['Home', 'index'],
     '/home/index' => ['Home', 'index'],
     '/home/precos' => ['Home', 'precos'],
     '/home/vender' => ['Home', 'vender'],
     '/home/anuncios' => ['Home', 'anuncios'],
     '/home/contato' => ['Home', 'contato'],
-
-    '/cadastro' => ['Cadastro', 'index'],
-    '/cadastro/index' => ['Cadastro', 'index'],
-    '/cadastro/create' => ['Cadastro', 'create'],
     
+
+
     '/cidades' => ['Cidades', 'index'],
     '/cidades/new' => ['Cidades', 'new'],
     '/cidades/index' => ['Cidades', 'index'],

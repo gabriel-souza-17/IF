@@ -73,29 +73,6 @@
 
             </ul>
 
-            <!-- Botões -->
-            <div class="d-flex align-items-center gap-2">
-
-                <a
-                    class="btn btn-nav-outline"
-                    href="<?= base_url('login') ?>">
-
-                    <i class="bi bi-person-circle"></i>
-                    Entrar
-
-                </a>
-
-                <a
-                    class="btn btn-nav-primary"
-                    href="<?= base_url('usuarios/new') ?>">
-
-                    <i class="bi bi-person-plus"></i>
-                    Criar Conta
-
-                </a>
-
-            </div>
-
         </div>
 
     </div>
