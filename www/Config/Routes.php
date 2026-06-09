@@ -58,6 +58,14 @@ return [
     '/admin' => ['Admin', 'index'],
     '/admin/index' => ['Admin', 'index'],
 
+    '/dono' => ['Dono', 'index'],
+    '/dono/equipe' => ['Dono', 'equipe'],
+    '/dono/agenda' => ['Dono', 'agenda'],
+    '/dono/servicos' => ['Dono', 'servicos'],
+    '/dono/configuracoes' => ['Dono', 'configuracoes'],
+    '/dono/visagismo' => ['Dono', 'visagismo'],
+
+
     '/user' => ['User', 'index'],
     '/user/index' => ['User', 'index'],
 ];

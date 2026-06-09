@@ -66,7 +66,7 @@ class Login {
                 return $this->redirect(base_url('admin'));
 
             case 'dono':
-                return $this->redirect(base_url('user'));
+                return $this->redirect(base_url('dono'));
 
             case 'barbeiro':
                 return $this->redirect(base_url('barbeiro'));
@@ -86,7 +86,7 @@ class Login {
         unset($_SESSION['usuario_logado']);
         session_destroy();
 
-        return $this->redirect(base_url('/'), [
+        return $this->redirect(base_url('projeto'), [
             'texto' => 'Deslogado com sucesso!',
             'color' => 'success'
         ]);

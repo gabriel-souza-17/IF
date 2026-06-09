@@ -12,42 +12,42 @@
         <ul class="nav flex-column">
 
             <li class="nav-item">
-                <a class="nav-link active" href="#">
+                <a class="nav-link" href="<?= base_url('dono') ?>">
                     <i class="bi bi-grid"></i>
                     Dashboard
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="<?= base_url('dono/agenda') ?>">
                     <i class="bi bi-calendar3"></i>
                     Agenda
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="<?= base_url('dono/equipe') ?>">
                     <i class="bi bi-people"></i>
                     Minha Equipe
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="<?= base_url('dono/servicos') ?>">
                     <i class="bi bi-scissors"></i>
                     Serviços
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="<?= base_url('dono/visagismo') ?>">
                     <i class="bi bi-stars"></i>
                     Visagismo IA
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="<?= base_url('dono/configuracoes') ?>">
                     <i class="bi bi-gear"></i>
                     Configurações
                 </a>
