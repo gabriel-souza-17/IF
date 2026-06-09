@@ -1,82 +1,104 @@
 <!-- Abre o menu de navegação -->
-<nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary"
-            data-bs-theme="dark">
-            <div class="container-fluid">
-            <a class="navbar-brand" href="<?php echo base_url('/') ?>">
-            <!--Logo do Projeto-->
-            <img src="<?php echo base_url('public/assets/images/logo_bargain2.png') ?>" alt="Bargain" width="130">
-        </a>
-                <button class="navbar-toggler" type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse"
-                    id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+<nav class="navbar navbar-expand-lg" data-bs-theme="dark">
 
-                        <!-- Link Home-->
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page"
-                            href="<?php echo base_url('home') ?>">
-                                <i class="bi bi-house-fill"></i>
-                                Home
-                            </a>
-                        </li>
+    <div class="container">
 
-                        <!-- Link Produtos-->
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page"
-                            href="<?php echo base_url('home/anuncios') ?>">
-                                <i class="bi bi-basket"></i>
-                                Quero Vender
-                            </a>
-                        </li>
+        <!-- Botão Mobile -->
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
 
-                        <!-- Link Produtos-->
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page"
-                            href="<?php echo base_url('home/anuncios') ?>">
-                                <i class="bi bi-info-circle-fill"></i>
-                                Vendidos
-                            </a>
-                        </li>
+            <span class="navbar-toggler-icon"></span>
 
-                         <!-- Link Produtos-->
-                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page"
-                                 href="<?php echo base_url('home/precos') ?>">
-                                <i class="bi bi-info-circle-fill"></i>
-                                Preços
-                            </a>
-                        </li>
+        </button>
 
-                        <!-- Link Produtos-->
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page"
-                            href="<?php echo base_url('home/contato') ?>">
-                                <i class="bi bi-telephone"></i>
-                                Contato
-                            </a>
-                        </li>
+        <!-- Menu -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                    </ul>
-                
-                    <div class="d-flex">
-                        <a class="btn btn-primary" href="<?php echo base_url('usuarios/new') ?>">
-                            <i class="bi bi-person-plus"></i>
-                            Cadastrar
-                        </a>
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
 
-                    <div class="d-flex">
-                        <a class="btn btn-outline-primary me-2" href="<?php echo base_url('login') ?>">
-                            <i class="bi bi-person-circle"></i>
-                            Entrar
-                        </a>
-                    </div>
-                </div>
+                <!-- Início -->
+                <li class="nav-item">
+                    <a
+                        class="nav-link active"
+                        aria-current="page"
+                        href="<?= base_url('/') ?>">
+
+                        <i class="bi bi-house-fill"></i>
+                        Início
+
+                    </a>
+                </li>
+
+                <!-- Recursos -->
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="<?= base_url('home/recursos') ?>">
+
+                        <i class="bi bi-grid"></i>
+                        Recursos
+
+                    </a>
+                </li>
+
+                <!-- Planos -->
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="<?= base_url('home/planos') ?>">
+
+                        <i class="bi bi-cash-stack"></i>
+                        Planos
+
+                    </a>
+                </li>
+
+                <!-- Contato -->
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="<?= base_url('home/contato') ?>">
+
+                        <i class="bi bi-telephone-fill"></i>
+                        Contato
+
+                    </a>
+                </li>
+
+            </ul>
+
+            <!-- Botões -->
+            <div class="d-flex align-items-center gap-2">
+
+                <a
+                    class="btn btn-nav-outline"
+                    href="<?= base_url('login') ?>">
+
+                    <i class="bi bi-person-circle"></i>
+                    Entrar
+
+                </a>
+
+                <a
+                    class="btn btn-nav-primary"
+                    href="<?= base_url('usuarios/new') ?>">
+
+                    <i class="bi bi-person-plus"></i>
+                    Criar Conta
+
+                </a>
+
             </div>
-        </nav>
-        <!-- Fecha o menu de navegação -->
+
+        </div>
+
+    </div>
+
+</nav>
+<!-- Fecha o menu de navegação -->

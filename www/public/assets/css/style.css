@@ -1,0 +1,263 @@
+/* ====================================
+   CONFIGURAÇÕES GERAIS
+==================================== */
+
+body{
+    background:#050505;
+}
+
+/* ====================================
+   SIDEBAR BARBEIRO (PAINEL)
+==================================== */
+
+.sidebar{
+    width:250px;
+    height:100vh;
+    background:#0b0b0b;
+    border-right:1px solid #1f1f1f;
+    position:fixed;
+    left:0;
+    top:0;
+    overflow-y:auto;
+    z-index:999;
+}
+
+.sidebar-content{
+    padding:30px 20px;
+}
+
+.logo{
+    color:#d8a35d;
+    font-size:28px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo i{
+    font-size:28px;
+}
+
+.sidebar .nav-link{
+    color:#ffffff;
+    padding:12px 15px;
+    border-radius:12px;
+    margin-bottom:10px;
+    transition:.3s;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.sidebar .nav-link:hover{
+    background:#171717;
+    color:#d8a35d;
+}
+
+.sidebar .nav-link.active{
+    background:#171717;
+    color:#d8a35d;
+}
+
+.sidebar .nav-link i{
+    font-size:18px;
+}
+
+.sidebar .logout{
+    color:#dc3545;
+}
+
+.sidebar .logout:hover{
+    background:#2b1010;
+    color:#ff6b6b;
+}
+
+/* ====================================
+   CONTEÚDO DO PAINEL
+==================================== */
+
+.main-content{
+    margin-left:250px;
+    padding:30px;
+}
+
+/* ====================================
+   NAVBAR SITE PÚBLICO
+==================================== */
+
+.navbar{
+    background:transparent !important;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1000;
+    padding:20px 0;
+}
+
+.navbar .container{
+    max-width:1320px;
+}
+
+.navbar-brand img{
+    width:130px;
+    height:auto;
+}
+
+.navbar-nav{
+    gap:8px;
+}
+
+.navbar .nav-link{
+    color:#ffffff !important;
+    font-weight:500;
+    padding:8px 14px;
+    transition:.3s;
+}
+
+.navbar .nav-link:hover{
+    color:#d8a35d !important;
+}
+
+.navbar .nav-link.active{
+    color:#d8a35d !important;
+}
+
+/* ====================================
+   BOTÕES NAVBAR
+==================================== */
+
+.btn-nav-primary{
+    background:#d8a35d;
+    border:none;
+    color:#000;
+    font-weight:600;
+    padding:10px 20px;
+    border-radius:10px;
+    transition:.3s;
+}
+
+.btn-nav-primary:hover{
+    background:#c8944d;
+    color:#000;
+}
+
+.btn-nav-outline{
+    border:1px solid #ffffff;
+    color:#ffffff;
+    font-weight:600;
+    padding:10px 20px;
+    border-radius:10px;
+    transition:.3s;
+}
+
+.btn-nav-outline:hover{
+    background:#ffffff;
+    color:#000;
+}
+
+/* ====================================
+   RESPONSIVO
+==================================== */
+
+/* ====================================
+   NAVBAR LANDING PAGE
+==================================== */
+
+.navbar{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:9999;
+    background:transparent !important;
+    padding:18px 0;
+}
+
+.navbar .container{
+    max-width:1200px;
+}
+
+.navbar-brand{
+    color:#ffffff !important;
+    font-size:28px;
+    font-weight:700;
+    text-decoration:none;
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.navbar-brand i{
+    color:#ffffff;
+    font-size:24px;
+}
+
+.navbar-nav{
+    gap:25px;
+}
+
+.navbar .nav-link{
+    color:#ffffff !important;
+    font-weight:500;
+    transition:.3s;
+}
+
+.navbar .nav-link:hover{
+    color:#d8a35d !important;
+}
+
+.navbar .nav-link.active{
+    color:#d8a35d !important;
+}
+
+.btn-nav-primary{
+    background:#d8a35d;
+    border:none;
+    color:#000;
+    font-weight:600;
+    padding:10px 28px;
+    border-radius:8px;
+    transition:.3s;
+}
+
+.btn-nav-primary:hover{
+    background:#c8944d;
+    color:#000;
+}
+
+.navbar-toggler{
+    border:none;
+}
+
+.navbar-toggler:focus{
+    box-shadow:none;
+}
+
+/* ====================================
+   RESPONSIVO
+==================================== */
+
+@media (max-width: 991px){
+
+    .navbar{
+        background:#050505 !important;
+    }
+
+    .navbar-collapse{
+        margin-top:20px;
+        text-align:center;
+    }
+
+    .navbar-nav{
+        gap:10px;
+    }
+
+    .btn-nav-primary{
+        width:100%;
+        margin-top:15px;
+    }
+
+}
