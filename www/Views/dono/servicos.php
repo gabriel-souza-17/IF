@@ -23,9 +23,104 @@ if(isset($_SESSION['usuario_logado'])){
             href="<?= base_url('dono/servicos/new') ?>"
             class="btn btn-primary">
 
+            <i class="bi bi-plus-circle"></i>
             Novo Serviço
 
         </a>
+
+    </div>
+
+    <div class="card">
+
+        <div class="card-body">
+
+            <table class="table table-hover">
+
+                <thead>
+
+                    <tr>
+                        <th>Nome</th>
+                        <th>Duração</th>
+                        <th>Preço</th>
+                        <th>Status</th>
+                        <th width="150">Ações</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <?php if(!empty($servicos)): ?>
+
+                        <?php foreach($servicos as $servico): ?>
+
+                            <tr>
+
+                                <td>
+                                    <?= $servico->nome ?>
+                                </td>
+
+                                <td>
+                                    <?= $servico->duracao ?> min
+                                </td>
+
+                                <td>
+                                    R$ <?= number_format($servico->preco, 2, ',', '.') ?>
+                                </td>
+
+                                <td>
+
+                                    <?php if($servico->status == 1): ?>
+
+                                        <span class="badge bg-success">
+                                            Ativo
+                                        </span>
+
+                                    <?php else: ?>
+
+                                        <span class="badge bg-danger">
+                                            Inativo
+                                        </span>
+
+                                    <?php endif; ?>
+
+                                </td>
+
+                                <td>
+
+                                    <a
+                                        href="<?= base_url('dono/servicos/edit/'.$servico->id) ?>"
+                                        class="btn btn-sm btn-warning">
+
+                                        <i class="bi bi-pencil"></i>
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                        <?php endforeach; ?>
+
+                    <?php else: ?>
+
+                        <tr>
+
+                            <td colspan="5" class="text-center">
+
+                                Nenhum serviço cadastrado.
+
+                            </td>
+
+                        </tr>
+
+                    <?php endif; ?>
+
+                </tbody>
+
+            </table>
+
+        </div>
 
     </div>
 
