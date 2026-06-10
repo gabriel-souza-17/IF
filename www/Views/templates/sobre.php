@@ -5,14 +5,33 @@
                 <img width="200" src="<?php base_url('assets/images/sd_logo.png') ?>"
                     class="m-4 float-end">
 
-                <h1>Por que escolher nosso sistema?</h1>
+                <h1>Conheça a nossa História</h1>
 
                 <p class=" text-justify">
-                    Organize sua agenda, controle seus barbeiros,
-                    acompanhe o faturamento e ofereça uma melhor
-                    experiência aos seus clientes.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
+                    in, ex veniam error magni quae pariatur minus recusandae non
+                    nihil inventore consequuntur illo, ducimus, optio aliquid!
+                    Maxime ut dolorum reprehenderit!
+
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
+                    in, ex veniam error magni quae pariatur minus recusandae non
+                    nihil inventore consequuntur illo, ducimus, optio aliquid!
+                    Maxime ut dolorum reprehenderit!
                     </p class="text-justify">
 
+                    <p class="text-justify">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Rem in, ex veniam error magni quae pariatur minus
+                        recusandae non nihil inventore consequuntur illo,
+                        ducimus, optio aliquid! Maxime ut dolorum reprehenderit!
+                    </p>
+
+                    <p class="text-justify">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Rem in, ex veniam error magni quae pariatur minus
+                        recusandae non nihil inventore consequuntur illo,
+                        ducimus, optio aliquid! Maxime ut dolorum reprehenderit!
+                    </p>
                 </div>
 
             </div>

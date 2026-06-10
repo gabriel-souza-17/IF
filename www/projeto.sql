@@ -277,3 +277,16 @@ VALUES (
     'dono',
     1
 );
+
+INSERT INTO usuarios (barbearia_id, nome, email, telefone, senha, cargo, atende_clientes, agenda_ativa, status)
+VALUES (
+    1,
+    'Carlos Barbearia',
+    'barbeiro@central.com',
+    '62977770000',
+    MD5('123456'),
+    'barbeiro',
+    1,
+    1,
+    1
+);

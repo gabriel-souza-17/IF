@@ -1,6 +1,6 @@
 <?php 
 if(isset($_SESSION['usuario_logado'])){
-    if($_SESSION['usuario_logado']->usuarios_nivel == 1){
+    if($_SESSION['usuario_logado']->cargo == 'admin'){
 ?>
 
 <h2>Página administrativa</h2>

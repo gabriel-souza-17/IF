@@ -41,23 +41,18 @@ return [
     '/usuarios/edit_save' => ['Usuarios', 'edit_save'],
     '/usuarios/search' => ['Usuarios', 'search'],
 
-    '/enderecos' => ['Enderecos', 'index'],
-    '/enderecos/new' => ['Enderecos', 'new'],
-    '/enderecos/index' => ['Enderecos', 'index'],
-    '/enderecos/edit/{id}' => ['Enderecos', 'edit'],
-    '/enderecos/delete/{id}' => ['Enderecos', 'delete'],
-    '/enderecos/save' => ['Enderecos', 'save'],
-    '/enderecos/edit_save' => ['Enderecos', 'edit_save'],
-    '/enderecos/search' => ['Enderecos', 'search'],
-
     '/login' => ['Login', 'index'],
     '/login/index' => ['Login', 'index'],
     '/login/auth' => ['Login', 'auth'],
     '/login/logout' => ['Login', 'logout'],
-
+    
     '/admin' => ['Admin', 'index'],
-    '/admin/index' => ['Admin', 'index'],
-
+    '/admin/usuarios' => ['Admin', 'usuarios'],
+    '/admin/barbearias' => ['Admin', 'barbearias'],
+    '/admin/planos' => ['Admin', 'planos'],
+    '/admin/financeiro' => ['Admin', 'financeiro'],
+    '/admin/configuracoes' => ['Admin', 'configuracoes'],
+        
     '/dono' => ['Dono', 'index'],
     '/dono/equipe' => ['Dono', 'equipe'],
     '/dono/agenda' => ['Dono', 'agenda'],

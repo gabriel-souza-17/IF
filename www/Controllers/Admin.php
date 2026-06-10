@@ -10,24 +10,29 @@ use \PDO;
 
 class Admin{
 
-    function __construct(){
-        # $this->usuarios = new Conexao('usuarios');
+    public function index()
+    {
+        return view('admin/index');
     }
 
-    protected function redirect($path, $message = null) {
-        if ($message) {
-            $_SESSION['msg'] = $message;
-        }
-        header("Location: {$path}");
-        exit;
+    public function usuarios()
+    {
+        return view('admin/usuarios');
     }
 
-    //R - Função Listar todas os registros de uma tabela do BD
-    function index(){
-        $data = [];
-        $data['pagina'] = 'Admin';
-        $data['msg'] = '';
-        return view('admin/index',$data);
+    public function barbearias()
+    {
+        return view('admin/barbearias');
+    }
+
+    public function planos()
+    {
+        return view('admin/planos');
+    }
+
+    public function financeiro()
+    {
+        return view('admin/financeiro');
     }
 
 }

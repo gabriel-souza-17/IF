@@ -47,7 +47,7 @@ class Usuarios
 
         return view('usuarios/form', $data);
     }
-    
+
     // C - Função Cadastrar
     public function save()
     {
