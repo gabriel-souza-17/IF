@@ -11,10 +11,12 @@ use PDO;
 class Dono
 {
     private $usuarios;
+    private $servicos;
 
     public function __construct()
     {
         $this->usuarios = new Conexao('usuarios');
+        $this->servicos = new Conexao('servicos');
     }
     
     public function index()
@@ -48,7 +50,7 @@ class Dono
 
         require 'Views/dono/equipe.php';
     }
-    
+
     public function equipe_new()
     {
         $data = [];
@@ -110,7 +112,45 @@ class Dono
 
     public function servicos()
     {
+        $barbearia_id = $_SESSION['usuario_logado']->barbearia_id;
+
+        $servicos = $this->servicos
+            ->select(null, "barbearia_id = {$barbearia_id}")
+            ->fetchAll(PDO::FETCH_CLASS);
+
         require 'Views/dono/servicos.php';
+    }
+
+    public function servicos_new()
+    {
+        require 'Views/dono/servicos_form.php';
+    }
+
+    public function servicos_save()
+    {
+        $requests = $_POST;
+
+        $servico = [
+
+            'barbearia_id' => $_SESSION['usuario_logado']->barbearia_id,
+
+            'nome' => trim($requests['nome']),
+
+            'descricao' => trim($requests['descricao']),
+
+            'duracao' => (int)$requests['duracao'],
+
+            'preco' => str_replace(',', '.', $requests['preco']),
+
+            'status' => 1,
+
+            'created_at' => date('Y-m-d H:i:s')
+        ];
+
+        $this->servicos->insert($servico);
+
+        header('Location: '.base_url('dono/servicos'));
+        exit;
     }
 
     public function configuracoes()

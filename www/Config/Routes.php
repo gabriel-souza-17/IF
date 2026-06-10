@@ -60,7 +60,9 @@ return [
     '/dono/visagismo' => ['Dono', 'visagismo'],
     '/dono/equipe/new' => ['Dono', 'equipe_new'],
     '/dono/equipe/save' => ['Dono', 'equipe_save'],
-
+    '/dono/servicos/new' => ['Dono', 'servicos_new'],
+    '/dono/servicos/save' => ['Dono', 'servicos_save'],
+    
     '/barbeiro' => ['Barbeiro', 'index'],
     '/barbeiro/agenda' => ['Barbeiro', 'agenda'],
     '/barbeiro/servicos' => ['Barbeiro', 'servicos'],
