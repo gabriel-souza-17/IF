@@ -7,7 +7,7 @@ body{
 }
 
 /* ====================================
-   SIDEBAR BARBEIRO (PAINEL)
+   SIDEBAR (PAINEL)
 ==================================== */
 
 .sidebar{
@@ -16,8 +16,8 @@ body{
     background:#0b0b0b;
     border-right:1px solid #1f1f1f;
     position:fixed;
-    left:0;
     top:0;
+    left:0;
     overflow-y:auto;
     z-index:999;
 }
@@ -27,12 +27,13 @@ body{
 }
 
 .logo{
-    color:#d8a35d;
-    font-size:28px;
-    font-weight:700;
     display:flex;
     align-items:center;
     gap:10px;
+
+    color:#d8a35d;
+    font-size:28px;
+    font-weight:700;
 }
 
 .logo i{
@@ -40,21 +41,18 @@ body{
 }
 
 .sidebar .nav-link{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
     color:#ffffff;
     padding:12px 15px;
     border-radius:12px;
     margin-bottom:10px;
     transition:.3s;
-    display:flex;
-    align-items:center;
-    gap:10px;
 }
 
-.sidebar .nav-link:hover{
-    background:#171717;
-    color:#d8a35d;
-}
-
+.sidebar .nav-link:hover,
 .sidebar .nav-link.active{
     background:#171717;
     color:#d8a35d;
@@ -79,7 +77,41 @@ body{
 
 .main-content{
     margin-left:250px;
-    padding:30px;
+    padding:40px;
+    min-height:100vh;
+}
+
+.main-content h1{
+    color:#ffffff;
+    font-weight:700;
+}
+
+/* ====================================
+   CARDS E TABELAS
+==================================== */
+
+.card{
+    background:#111111;
+    border:1px solid #1f1f1f !important;
+    border-radius:16px;
+}
+
+.card-body{
+    color:#ffffff;
+}
+
+.table{
+    color:#ffffff;
+    margin-bottom:0;
+}
+
+.table thead th{
+    color:#d8a35d;
+    border-bottom:1px solid #2a2a2a;
+}
+
+.table td{
+    border-color:#1f1f1f;
 }
 
 /* ====================================
@@ -87,89 +119,11 @@ body{
 ==================================== */
 
 .navbar{
-    background:transparent !important;
     position:absolute;
     top:0;
     left:0;
     width:100%;
-    z-index:1000;
-    padding:20px 0;
-}
 
-.navbar .container{
-    max-width:1320px;
-}
-
-.navbar-brand img{
-    width:130px;
-    height:auto;
-}
-
-.navbar-nav{
-    gap:8px;
-}
-
-.navbar .nav-link{
-    color:#ffffff !important;
-    font-weight:500;
-    padding:12px 14px;
-    transition:.3s;
-}
-
-.navbar .nav-link:hover{
-    color:#d8a35d !important;
-}
-
-.navbar .nav-link.active{
-    color:#d8a35d !important;
-}
-
-/* ====================================
-   BOTÕES NAVBAR
-==================================== */
-
-.btn-nav-primary{
-    background:#d8a35d;
-    border:none;
-    color:#000;
-    font-weight:600;
-    padding:14px 24px;
-    border-radius:10px;
-    transition:.3s;
-}
-
-.btn-nav-primary:hover{
-    background:#c8944d;
-    color:#000;
-}
-
-.btn-nav-outline{
-    border:1px solid #ffffff;
-    color:#ffffff;
-    font-weight:600;
-    padding:14px 24px;
-    border-radius:10px;
-    transition:.3s;
-}
-
-.btn-nav-outline:hover{
-    background:#ffffff;
-    color:#000;
-}
-
-/* ====================================
-   RESPONSIVO
-==================================== */
-
-/* ====================================
-   NAVBAR LANDING PAGE
-==================================== */
-
-.navbar{
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
     z-index:9999;
     background:transparent !important;
     padding:18px 0;
@@ -180,14 +134,20 @@ body{
 }
 
 .navbar-brand{
-    color:#ffffff !important;
-    font-size:28px;
-    font-weight:700;
-    text-decoration:none;
-
     display:flex;
     align-items:center;
     gap:10px;
+
+    color:#ffffff !important;
+    text-decoration:none;
+
+    font-size:28px;
+    font-weight:700;
+}
+
+.navbar-brand img{
+    width:130px;
+    height:auto;
 }
 
 .navbar-brand i{
@@ -202,30 +162,13 @@ body{
 .navbar .nav-link{
     color:#ffffff !important;
     font-weight:500;
+    padding:12px 14px;
     transition:.3s;
 }
 
-.navbar .nav-link:hover{
-    color:#d8a35d !important;
-}
-
+.navbar .nav-link:hover,
 .navbar .nav-link.active{
     color:#d8a35d !important;
-}
-
-.btn-nav-primary{
-    background:#d8a35d;
-    border:none;
-    color:#000;
-    font-weight:600;
-    padding:14px 28px;
-    border-radius:8px;
-    transition:.3s;
-}
-
-.btn-nav-primary:hover{
-    background:#c8944d;
-    color:#000;
 }
 
 .navbar-toggler{
@@ -237,29 +180,56 @@ body{
 }
 
 /* ====================================
-   RESPONSIVO
+   BOTÕES
 ==================================== */
 
-@media (max-width: 991px){
+.btn-nav-primary{
+    background:#d8a35d;
+    border:none;
+    color:#000;
 
-    .navbar{
-        background:#050505 !important;
-    }
+    font-weight:600;
+    padding:14px 28px;
+    border-radius:10px;
 
-    .navbar-collapse{
-        margin-top:20px;
-        text-align:center;
-    }
+    transition:.3s;
+}
 
-    .navbar-nav{
-        gap:10px;
-    }
+.btn-nav-primary:hover{
+    background:#c8944d;
+    color:#000;
+}
 
-    .btn-nav-primary{
-        width:100%;
-        margin-top:15px;
-    }
+.btn-nav-outline{
+    border:1px solid #ffffff;
+    color:#ffffff;
 
+    font-weight:600;
+    padding:14px 24px;
+    border-radius:10px;
+
+    transition:.3s;
+}
+
+.btn-nav-outline:hover{
+    background:#ffffff;
+    color:#000;
+}
+
+/* ====================================
+   BOTÕES DO PAINEL
+==================================== */
+
+.btn-primary{
+    background:#d8a35d;
+    border:none;
+    color:#000;
+    font-weight:600;
+}
+
+.btn-primary:hover{
+    background:#c8944d;
+    color:#000;
 }
 
 /* ====================================
@@ -287,20 +257,22 @@ body{
 .hero-content{
     position:relative;
     z-index:2;
-    color:#fff;
+    color:#ffffff;
 }
 
 .hero-content h1{
+    max-width:700px;
+    margin-bottom:20px;
+
     font-size:72px;
     font-weight:700;
-    margin-bottom:20px;
-    max-width:700px;
 }
 
 .hero-content p{
+    margin-bottom:30px;
+
     font-size:24px;
     color:#d9d9d9;
-    margin-bottom:30px;
 }
 
 .hero-buttons{
@@ -308,19 +280,38 @@ body{
     gap:15px;
 }
 
-.btn-nav-outline{
-    border:1px solid #fff;
-    color:#fff;
-    padding:14px 24px;
-    border-radius:8px;
+/* ====================================
+   RESPONSIVO
+==================================== */
+
+@media (max-width:991px){
+
+    .navbar{
+        background:#050505 !important;
+    }
+
+    .navbar-collapse{
+        margin-top:20px;
+        text-align:center;
+    }
+
+    .navbar-nav{
+        gap:10px;
+    }
+
+    .btn-nav-primary{
+        width:100%;
+        margin-top:15px;
+    }
+
+    .main-content{
+        margin-left:0;
+        padding:20px;
+    }
+
 }
 
-.btn-nav-outline:hover{
-    background:#fff;
-    color:#000;
-}
-
-@media(max-width:768px){
+@media (max-width:768px){
 
     .hero-content h1{
         font-size:42px;

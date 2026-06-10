@@ -70,6 +70,9 @@ if ($handler) {
     http_response_code(404);
     echo "Rota '{$uri}' não encontrada.";
 }
-include('Views/templates/footer.php');
+if ($nivel == null) {
+    include('Views/templates/footer.php');
+}
+
 include('Views/templates/end.php');
 ob_end_flush(); // <- Libera o conteúdo do buffer

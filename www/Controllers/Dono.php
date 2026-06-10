@@ -11,7 +11,19 @@ class Dono
 
     public function equipe()
     {
+        $data = [];
+        $data['pagina'] = 'Minha Equipe';
+
         require 'Views/dono/equipe.php';
+        
+    }
+    public function equipe_new()
+    {
+        $data = [];
+
+        $data['pagina'] = 'Novo Barbeiro';
+
+        require 'Views/dono/equipe_form.php';
     }
 
     public function agenda()

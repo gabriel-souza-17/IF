@@ -7,9 +7,8 @@ return [
     '/projeto' => ['Home', 'index'],
     '/projeto/' => ['Home', 'index'],
     '/home/index' => ['Home', 'index'],
-    '/home/precos' => ['Home', 'precos'],
-    '/home/vender' => ['Home', 'vender'],
-    '/home/anuncios' => ['Home', 'anuncios'],
+    '/home/planos' => ['Home', 'planos'],
+    '/home/recursos' => ['Home', 'recursos'],
     '/home/contato' => ['Home', 'contato'],
     
 
@@ -59,6 +58,8 @@ return [
     '/dono/servicos' => ['Dono', 'servicos'],
     '/dono/configuracoes' => ['Dono', 'configuracoes'],
     '/dono/visagismo' => ['Dono', 'visagismo'],
+    '/dono/equipe/new' => ['Dono', 'equipe_new'],
+    '/dono/equipe/save' => ['Dono', 'equipe_save'],
 
     '/barbeiro' => ['Barbeiro', 'index'],
     '/barbeiro/agenda' => ['Barbeiro', 'agenda'],

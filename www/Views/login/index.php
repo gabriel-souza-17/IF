@@ -1,10 +1,6 @@
 <div class="container p-5">
     <div class="row mt-5">
         <div class="mx-auto border border-3 border-danger rounded p-5 bg-dark text-white">
-            <div class="text-center mt-3 mb-3">
-                <img src="<?php echo 
-                base_url("public/assets/images/logo_bargain2.png") ?>" 
-                alt="BargainCar" width="300">
                 
                 <h2 class="p-3">Acesso ao Sistema</h2>
 
