@@ -24,13 +24,18 @@ if (
 
     <div class="d-flex justify-content-between align-items-center mb-4">
 
-        <div>
+        <h5 class="text-white mb-0">
+            Colaboradores
+        </h5>
 
-            <h5 class="text-white mb-0">
-                Colaboradores
-            </h5>
+        <a
+            href="<?= base_url('dono/equipe/new') ?>"
+            class="btn btn-primary">
 
-        </div>
+            <i class="bi bi-person-plus"></i>
+            Adicionar Barbeiro
+
+        </a>
 
     </div>
 
