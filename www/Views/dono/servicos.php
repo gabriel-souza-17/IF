@@ -1,1 +1,17 @@
+<?php 
+if(isset($_SESSION['usuario_logado'])){
+    if($_SESSION['usuario_logado']->cargo == 'dono'){
+?>
+
 <h1>Serviços</h1>
+
+<?php
+    }else{
+        $msg = "Sem permissão de acesso!";
+        redirectPage(base_url('login'));
+    }
+}else{
+    $msg = "Sem permissão de acesso!";
+        redirectPage(base_url('login'));
+
+}
