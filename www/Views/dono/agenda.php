@@ -1,13 +1,8 @@
 <?php 
-if(isset($_SESSION['usuario_logado'])){
-    if($_SESSION['usuario_logado']->cargo == 'dono'){
-?>
-
-<?php
-if(
+if (
     !isset($_SESSION['usuario_logado']) ||
     $_SESSION['usuario_logado']->cargo != 'dono'
-){
+) {
     redirectPage(base_url('login'));
     exit;
 }
@@ -33,9 +28,8 @@ if(
             Hoje
         </h5>
 
-        <a
-            href="<?= base_url('dono/agenda/new') ?>"
-            class="btn btn-primary">
+        <a href="<?= base_url('dono/agenda/new') ?>"
+           class="btn btn-primary">
 
             <i class="bi bi-calendar-plus"></i>
             Novo Agendamento
@@ -65,31 +59,66 @@ if(
 
                 <tbody>
 
-                    <tr>
+                <?php if (!empty($agendamentos)): ?>
 
+                    <?php foreach ($agendamentos as $a): ?>
+
+                        <tr>
+
+                            <td>
+                                <?= $a->hora_inicio ?> - <?= $a->hora_fim ?>
+                            </td>
+
+                            <td>
+                                <?= $a->cliente_nome ?>
+                            </td>
+
+                            <td>
+                                <?= $a->usuario_id ?>
+                            </td>
+
+                            <td>
+                                <?= $a->servico_id ?>
+                            </td>
+
+                            <td>
+                                <span class="badge bg-primary">
+                                    <?= $a->status ?>
+                                </span>
+                            </td>
+
+                            <td>
+                                <button class="btn btn-sm btn-light">
+                                    Ver
+                                </button>
+                            </td>
+
+                        </tr>
+
+                    <?php endforeach; ?>
+
+                <?php else: ?>
+
+                    <tr>
                         <td colspan="6" class="text-center py-5">
 
                             <i class="bi bi-calendar-x fs-1 d-block mb-3"></i>
 
-                            <h5>
-                                Nenhum agendamento encontrado
-                            </h5>
+                            <h5>Nenhum agendamento encontrado</h5>
 
                             <p class="text-muted mb-3">
                                 Crie o primeiro agendamento.
                             </p>
 
-                            <a
-                                href="<?= base_url('dono/agenda/new') ?>"
-                                class="btn btn-primary">
-
+                            <a href="<?= base_url('dono/agenda/new') ?>"
+                               class="btn btn-primary">
                                 Novo Agendamento
-
                             </a>
 
                         </td>
-
                     </tr>
+
+                <?php endif; ?>
 
                 </tbody>
 
@@ -100,14 +129,3 @@ if(
     </div>
 
 </div>
-
-<?php
-    }else{
-        $msg = "Sem permissão de acesso!";
-        redirectPage(base_url('login'));
-    }
-}else{
-    $msg = "Sem permissão de acesso!";
-        redirectPage(base_url('login'));
-
-}

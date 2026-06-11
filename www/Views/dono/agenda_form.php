@@ -48,131 +48,118 @@ if(
 
                 <div class="row">
 
+                    <!-- Cliente -->
                     <div class="col-md-6 mb-3">
 
-                        <label class="form-label">
-                            Cliente
-                        </label>
+                        <label class="form-label">Cliente</label>
 
-                        <input
-                            type="text"
-                            name="cliente_nome"
-                            class="form-control"
-                            required>
+                        <input type="text"
+                               name="cliente_nome"
+                               class="form-control"
+                               required>
 
                     </div>
 
+                    <!-- Telefone -->
                     <div class="col-md-6 mb-3">
 
-                        <label class="form-label">
-                            Telefone
-                        </label>
+                        <label class="form-label">Telefone</label>
 
-                        <input
-                            type="text"
-                            name="cliente_telefone"
-                            class="form-control">
+                        <input type="text"
+                               name="cliente_telefone"
+                               class="form-control"
+                               required>
 
                     </div>
 
+                    <!-- Barbeiro -->
                     <div class="col-md-6 mb-3">
 
-                        <label class="form-label">
-                            Barbeiro
-                        </label>
+                        <label class="form-label">Barbeiro</label>
 
-                        <select
-                            name="barbeiro_id"
-                            class="form-select"
-                            required>
+                        <select name="barbeiro_id"
+                                class="form-select"
+                                required>
 
-                            <option value="">
-                                Selecione
-                            </option>
+                            <option value="">Selecione</option>
 
                             <?php foreach($barbeiros as $barbeiro): ?>
-
                                 <option value="<?= $barbeiro->id ?>">
-
                                     <?= $barbeiro->nome ?>
-
                                 </option>
-
                             <?php endforeach; ?>
 
                         </select>
 
                     </div>
 
+                    <!-- Serviço -->
                     <div class="col-md-6 mb-3">
 
-                        <label class="form-label">
-                            Serviço
-                        </label>
+                        <label class="form-label">Serviço</label>
 
-                        <select
-                            name="servico_id"
-                            class="form-select"
-                            required>
+                        <select name="servico_id"
+                                class="form-select"
+                                required>
 
-                            <option value="">
-                                Selecione
-                            </option>
+                            <option value="">Selecione</option>
 
                             <?php foreach($servicos as $servico): ?>
-
                                 <option value="<?= $servico->id ?>">
-
-                                    <?= $servico->nome ?>
-                                    -
+                                    <?= $servico->nome ?> -
                                     R$ <?= number_format($servico->preco,2,',','.') ?>
-
                                 </option>
-
                             <?php endforeach; ?>
 
                         </select>
 
                     </div>
 
+                    <!-- Data -->
                     <div class="col-md-6 mb-3">
 
-                        <label class="form-label">
-                            Data
-                        </label>
+                        <label class="form-label">Data</label>
 
-                        <input
-                            type="date"
-                            name="data_agendamento"
-                            class="form-control"
-                            required>
+                        <input type="date"
+                               name="data_agendamento"
+                               class="form-control"
+                               required>
 
                     </div>
 
+                    <!-- Hora início (CORRETO) -->
                     <div class="col-md-6 mb-3">
 
-                        <label class="form-label">
-                            Hora
-                        </label>
+                        <label class="form-label">Hora de início</label>
 
-                        <input
-                            type="time"
-                            name="hora_agendamento"
-                            class="form-control"
-                            required>
+                        <input type="time"
+                               name="hora_inicio"
+                               class="form-control"
+                               required>
 
                     </div>
 
+                    <!-- Valor (OBRIGATÓRIO no seu banco) -->
+                    <div class="col-md-6 mb-3">
+
+                        <label class="form-label">Valor (R$)</label>
+
+                        <input type="number"
+                               step="0.01"
+                               name="valor"
+                               class="form-control"
+                               required>
+
+                    </div>
+
+                    <!-- Observações -->
                     <div class="col-12">
 
-                        <label class="form-label">
-                            Observações
-                        </label>
+                        <label class="form-label">Observações</label>
 
-                        <textarea
-                            name="observacoes"
-                            rows="4"
-                            class="form-control"></textarea>
+                        <textarea name="observacoes"
+                                  rows="4"
+                                  class="form-control"></textarea>
 
                     </div>
 
@@ -182,8 +169,7 @@ if(
 
         </div>
 
-        <button
-            class="btn btn-primary mt-4">
+        <button class="btn btn-primary mt-4">
 
             <i class="bi bi-calendar-check"></i>
             Salvar Agendamento
