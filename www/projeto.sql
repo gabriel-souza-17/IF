@@ -235,9 +235,39 @@ CREATE TABLE equipe (
         REFERENCES usuarios(id)
 );
 
-CREATE TABLE agenda (
+CREATE TABLE agendamentos (
     id INT AUTO_INCREMENT PRIMARY KEY,
 
+    barbearia_id INT NOT NULL,
+    usuario_id INT NOT NULL,
+    servico_id INT NOT NULL,
+
+    cliente_nome VARCHAR(150) NOT NULL,
+    cliente_telefone VARCHAR(20) NOT NULL,
+
+    data_agendamento DATE NOT NULL,
+
+    hora_inicio TIME NOT NULL,
+    hora_fim TIME NOT NULL,
+
+    valor DECIMAL(10,2) NOT NULL,
+
+    status ENUM(
+        'agendado',
+        'confirmado',
+        'concluido',
+        'cancelado'
+    ) DEFAULT 'agendado',
+
+    observacoes TEXT NULL,
+
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE horarios_trabalho (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+
+    barbearia_id INT NOT NULL,
     usuario_id INT NOT NULL,
 
     dia_semana TINYINT NOT NULL,
@@ -247,8 +277,7 @@ CREATE TABLE agenda (
 
     ativo TINYINT DEFAULT 1,
 
-    FOREIGN KEY (usuario_id)
-        REFERENCES usuarios(id)
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Inserts de exemplo

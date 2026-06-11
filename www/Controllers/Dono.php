@@ -12,11 +12,13 @@ class Dono
 {
     private $usuarios;
     private $servicos;
+    private $agendamentos;
 
     public function __construct()
     {
         $this->usuarios = new Conexao('usuarios');
         $this->servicos = new Conexao('servicos');
+        $this->agendamentos = new Conexao('agendamentos');
     }
     
     public function index()
@@ -107,7 +109,80 @@ class Dono
 
     public function agenda()
     {
+        $data = [];
+
+        $data['pagina'] = 'Agenda';
+
         require 'Views/dono/agenda.php';
+    }
+
+    public function agenda_new()
+    {
+        $data = [];
+
+        $barbearia_id = $_SESSION['usuario_logado']->barbearia_id;
+
+        $data['barbeiros'] = $this->usuarios
+            ->select(null,
+                "barbearia_id = {$barbearia_id}
+                AND cargo = 'barbeiro'
+                AND status = 1")
+            ->fetchAll(PDO::FETCH_CLASS);
+
+        $data['servicos'] = $this->servicos
+            ->select(null,
+                "barbearia_id = {$barbearia_id}
+                AND status = 1")
+            ->fetchAll(PDO::FETCH_CLASS);
+
+        extract($data);
+
+        require 'Views/dono/agenda_form.php';
+    }
+
+    public function agenda_save()
+    {
+        $request = $_POST;
+
+        $agendamento = [
+
+            'barbearia_id'      => $_SESSION['usuario_logado']->barbearia_id,
+
+            'barbeiro_id'       => $request['barbeiro_id'],
+
+            'servico_id'        => $request['servico_id'],
+
+            'cliente_nome'      => trim($request['cliente_nome']),
+
+            'cliente_telefone'  => trim($request['cliente_telefone']),
+
+            'data_agendamento'  => $request['data_agendamento'],
+
+            'hora_agendamento'  => $request['hora_agendamento'],
+
+            'observacoes'       => trim($request['observacoes']),
+
+            'status'            => 'agendado'
+        ];
+
+        if($this->agendamentos->insert($agendamento)){
+
+            $_SESSION['msg'] = [
+                'texto' => 'Agendamento criado com sucesso!',
+                'color' => 'success'
+            ];
+
+            header('Location: '.base_url('dono/agenda'));
+            exit;
+        }
+
+        $_SESSION['msg'] = [
+            'texto' => 'Erro ao criar agendamento.',
+            'color' => 'danger'
+        ];
+
+        header('Location: '.base_url('dono/agenda/new'));
+        exit;
     }
 
     public function servicos()

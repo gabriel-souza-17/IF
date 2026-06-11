@@ -55,6 +55,8 @@ return [
     '/dono' => ['Dono', 'index'],
     '/dono/equipe' => ['Dono', 'equipe'],
     '/dono/agenda' => ['Dono', 'agenda'],
+    '/dono/agenda/new' => ['Dono', 'agenda_new'],
+    '/dono/agenda/save' => ['Dono', 'agenda_save'],
     '/dono/servicos' => ['Dono', 'servicos'],
     '/dono/configuracoes' => ['Dono', 'configuracoes'],
     '/dono/visagismo' => ['Dono', 'visagismo'],
